@@ -6276,7 +6276,7 @@ local function OnBackpackChanged(bagId,_,slotData)
 	UpdatingMapPin[6]=true
 	zo_callLater(function()
 		UpdatingMapPin[6]=false
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[6].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[6].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[6].name) end
 	end,1000)
 end
@@ -6286,39 +6286,39 @@ local function OnLootReceived(_, receivedBy, itemName, quantity, itemSound, loot
 	--Ancestral Tombs
 	if AncestralTombRubbing[itemId] then
 		AchievementItems[1712][ AncestralTombRubbing[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[31].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[31].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[31].name) end
 	elseif WrothgarRelics[itemId] then
 		AchievementItems[1250][ WrothgarRelics[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[38].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[38].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[38].name) end
 	elseif RelicsOfSummerset[itemId] then
 		AchievementItems[2099][ RelicsOfSummerset[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[41].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[41].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[41].name) end
 	elseif PrecursorItems[itemId] then
 		AchievementItems[1958][ PrecursorItems[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[47].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[47].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[47].name) end
 	elseif ChronoglerTablet[itemId] then
 		AchievementItems[2320][ ChronoglerTablet[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[48].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[48].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[48].name) end
 	elseif MuralMenderFragments[itemId] then
 		AchievementItems[2463][ MuralMenderFragments[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[54].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[54].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[54].name) end
 	elseif PiecesOfHistory[itemId] then
 		AchievementItems[2534][ PiecesOfHistory[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[55].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[55].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[55].name) end
 	elseif Instruments[itemId] then
 		AchievementItems[2669][ Instruments[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[59].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[59].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[59].name) end
 	elseif MiningSampleCollector[itemId] then
 		AchievementItems[2759][ MiningSampleCollector[itemId] ]=true
-		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[68].name])
+		ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[68].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[68].name) end
 	end
 end
@@ -6349,7 +6349,7 @@ local function OnAchievementUpdate(achievementId,link)
 		EVENT_MANAGER:RegisterForUpdate("CallLater_"..name, 1000,
 		function()
 			EVENT_MANAGER:UnregisterForUpdate("CallLater_"..name)
-			ZO_WorldMap_RefreshCustomPinsOfType(name)
+			ZO_WorldMap_GetPinManager():RefreshCustomPins(name)
 			if COMPASS_PINS then COMPASS_PINS:RefreshPins(name) end
 		end)
 	end
@@ -6367,12 +6367,12 @@ local function OnAchievementUpdate(achievementId,link)
 	end
 end
 local function OnSkyshardsUpdated()
-    ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[3].name])
+    ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[3].name])
     if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[3].name) end
 end
 local function OnBookLearned(_,categoryIndex)
 	if categoryIndex==1 then
-	ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[5].name])
+	ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[5].name])
 	if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[5].name) end
 	end
 end
@@ -6406,7 +6406,7 @@ end
 local function CheckQuestData(x,y,zone)
 	if not zone then return end
 	local delta=0.03
-	mapData=CustomChestData[zone]
+	local mapData=CustomChestData[zone]
 	if mapData then
 		for i,data in pairs(mapData) do
 			if math.abs(data[1]-x)<delta and math.abs(data[2]-y)<delta then
@@ -6490,13 +6490,13 @@ local function OnInteract(_,result,TargetName)
 		if zone then
 			local x,y,_=GetMapPlayerPosition("player") x=math.floor(x*10000)/10000 y=math.floor(y*10000)/10000
 			local delta=0.03
-			mapData=TimeBreach[zone]
+			local mapData=TimeBreach[zone]
 			if mapData then
 				for i,data in ipairs(mapData) do
 					if math.abs(data[1]-x)<delta and math.abs(data[2]-y)<delta then
 						if not SavedVars.TimeBreachClosed[zone] then SavedVars.TimeBreachClosed[zone]={} end
 						SavedVars.TimeBreachClosed[zone][i]=true
-						ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[15].name])
+						ZO_WorldMap_GetPinManager():RefreshCustomPins(_G[CustomPins[15].name])
 						if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[15].name) end
 					end
 				end
@@ -6508,7 +6508,7 @@ end
 
 local function TrackChestsRange()
 --	if IsUnitInCombat('player') then return end
-	ZO_WorldMap_RefreshCustomPinsOfType(PinId[7])
+	ZO_WorldMap_GetPinManager():RefreshCustomPins(PinId[7])
 end
 
 local function ResizePins(minimap)
@@ -6588,7 +6588,7 @@ local function AddPinFilter(i)
 --				pl("["..id.."] "..CustomPins[pin].name..": Refresh")
 				AddCompassCustomPin(id,pin)
 				if not init then
-					ZO_WorldMap_RefreshCustomPinsOfType(id)
+					ZO_WorldMap_GetPinManager():RefreshCustomPins(id)
 					RegisterEvents()
 				end
 			end
@@ -6692,7 +6692,7 @@ local function AddPinFilter(i)
 	end
 	--pvpPanel
 	if PinsAva[i] then
-		control=AddCheckbox(WORLD_MAP_FILTERS.pvpPanel)
+		local control=AddCheckbox(WORLD_MAP_FILTERS.pvpPanel)
 		if control then
 			ZO_CheckButton_SetToggleFunction(control,function(self,state) SavedVars[i]=state SetEnabled(self,state) end)
 			SetEnabled(control,SavedVars[i],true)
@@ -6700,7 +6700,7 @@ local function AddPinFilter(i)
 	end
 	--imperialPvPPanel
 	if PinsImperial[i] then
-		control=AddCheckbox(WORLD_MAP_FILTERS.imperialPvPPanel)
+		local control=AddCheckbox(WORLD_MAP_FILTERS.imperialPvPPanel)
 		if control then
 			ZO_CheckButton_SetToggleFunction(control,function(self,state) SavedVars[i]=state SetEnabled(self,state) end)
 			SetEnabled(control,SavedVars[i],true)
@@ -6893,9 +6893,9 @@ local function OnLoad(eventCode,addonName)
 		local TooltipCreator=(not PinTooltipSupres[pin] and PinTooltipCreator or nil)
 		local name=pinLayout.name
 		pinLayout.size=pinLayout.size or SavedGlobal.pinsize*pinLayout.k
-		ZO_WorldMap_AddCustomPin(name,function() MapPinAddCallback(pin) end,nil,pinLayout,TooltipCreator)
+		ZO_WorldMap_GetPinManager():AddCustomPin(name,function() MapPinAddCallback(pin) end,nil,pinLayout,TooltipCreator)
 		local id=_G[name]
---		ZO_WorldMap_SetCustomPinEnabled(id,true) ZO_WorldMap_RefreshCustomPinsOfType(id)
+--		ZO_WorldMap_SetCustomPinEnabled(id,true) ZO_WorldMap_GetPinManager():RefreshCustomPins(id)
 --		AddCompassCustomPin(id,pin)
 		return id
 	end
@@ -6940,7 +6940,7 @@ local function OnLoad(eventCode,addonName)
 			for i,id in pairs(PinId) do
 				if ZO_MapPin.PIN_DATA[id] and CustomPins[i].k then ZO_MapPin.PIN_DATA[id].size=n*CustomPins[i].k end
 			end
-			ZO_WorldMap_RefreshCustomPinsOfType()
+			ZO_WorldMap_GetPinManager():RefreshCustomPins()
 		end
 	end
 --[[
@@ -7096,7 +7096,7 @@ end
 /script MP_MakeBase()
 /script Link=("|H1:item:%d:370:50:0:0:0:0:0:0:0:0:0:0:0:0:1:0:0:0:10000:0|h|h"):format(130803) local _,name=GetItemLinkSetInfo(Link) StartChatInput(name)
 /script d(ZO_WorldMap_GetPinManager():IsCustomPinEnabled(201))
-/script ZO_WorldMap_RefreshCustomPinsOfType()
+/script ZO_WorldMap_GetPinManager():RefreshCustomPins()
 /script for pin,data in pairs(ZO_MapPin.PIN_DATA) do local texture=data.texture d(pin.." ("..tostring(data.size)..") |t18:18:"..tostring(texture).."|t"..tostring(texture)) end
 /script ZO_MapPin.PIN_DATA[170].size=16
 /script for id=1350,1400 do local AchName=GetAchievementCriterion(id,1) if string.match(AchName,"Explorer")~=nil then d("["..id.."] "..AchName) end end
