@@ -7438,6 +7438,7 @@ local function ScanInventory()
 end
 
 --Events
+--[[
 local function OnBackpackChanged(bagId,_,slotData)
 --	d("Bag changed: "..bagId..(slotData and " Item type: "..tostring(slotData.itemType or "")))
 	if bagId~=BAG_BACKPACK or UpdatingMapPin[6] or not slotData or slotData.itemType~=ITEMTYPE_TROPHY then return end
@@ -7447,6 +7448,17 @@ local function OnBackpackChanged(bagId,_,slotData)
 		ZO_WorldMap_RefreshCustomPinsOfType(_G[CustomPins[6].name])
 		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[6].name) end
 	end,1000)
+end
+--]]
+--Events (quick fix)
+local function OnBackpackChanged(bagId,_,slotData)
+    if bagId ~= BAG_BACKPACK or UpdatingMapPin[6] then return end
+    UpdatingMapPin[6] = true
+    zo_callLater(function()
+        UpdatingMapPin[6] = false
+        PinManager:RefreshCustomPins(_G[CustomPins[6].name])
+        if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[6].name) end
+    end, 1000)
 end
 
 local function OnLootReceived(_, receivedBy, itemName, quantity, itemSound, lootType, self, _, questItemIcon, itemId)
