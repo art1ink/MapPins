@@ -6863,7 +6863,15 @@ local TrophyTable={--AcheventID = Trophy Table
 [2669]=Instruments,
 [2759]=MiningSampleCollector,
 }
-
+local PortalsNames={
+[1]=Loc("Oblivion_Portals"),
+[2]=Loc("Dark_Fissures"),
+[3]=Loc("Celestial_Rifts"),
+[4]=Loc("Shadow_Fissures"),
+[5]=Loc("Lava_Lashers"),
+[6]=Loc("Soul_Reaper"),
+}
+local FILTER_COUNT=30 --Amount of filters
 local CustomPins={	--Types
 	[1]={name="pinType_Delve_bosses",done=false,id={},pin={},maxDistance=0.05,level=30,texture="/esoui/art/icons/poi/poi_groupboss_incomplete.dds",k=1.25},--tint=ZO_ColorDef:New(1,1,1,1),
 	[2]={name="pinType_Delve_bosses_done",done=true,id={},pin={},maxDistance=0.05,level=30,texture="/esoui/art/icons/poi/poi_groupboss_complete.dds",k=1.25},
@@ -7265,19 +7273,7 @@ local MapPinCallback={
 			mapData=mapData[i]
 			if mapData then
 				for i1,pinData in pairs(mapData) do
-					if pinData[3]==1 then
-						PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name="Oblivion portal"},pinData[1],pinData[2])
-					elseif pinData[3]==2 then
-						PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name="Dark Fissures"},pinData[1],pinData[2])
-					elseif pinData[3]==3 then
-						PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name="Celestial Rift"},pinData[1],pinData[2])
-					elseif pinData[3]==4 then
-						PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name="Shadow Fissures"},pinData[1],pinData[2])
-					elseif pinData[3]==5 then
-						PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name="Lava Lasher"},pinData[1],pinData[2])
-					elseif pinData[3]==6 then
-						PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name="Soul Reaper"},pinData[1],pinData[2])
-					end
+					PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name=PortalsNames[pinData[3] ]},pinData[1],pinData[2])					
 				end
 			end
 		end
@@ -7328,7 +7324,7 @@ local function MapPinAddCallback(i)
 				end
 			end
 		end
-	elseif i>=30 then
+	elseif i>=FILTER_COUNT then
 		local mapData=Achievements[subzone]
 		if mapData then
 			mapData=mapData[i]
@@ -7830,12 +7826,13 @@ local function AddPinFilter(i)
 			..zo_iconFormat(FishIcon[3],24,24).." "..Loc("Salt").."\n"
 			..zo_iconFormat(FishIcon[4],24,24).." "..Loc("Lake")
 		elseif CustomPins[i].name=="pinType_Portals" then
-			tooltipText=zo_iconFormat("/esoui/art/icons/poi/poi_portal_complete.dds",24,24).." "..Loc("Celestial_Rifts").."\n"
-			..zo_iconFormat("/esoui/art/icons/poi/poi_portal_complete.dds",24,24).." "..Loc("Dark_Fissures").."\n"
-			..zo_iconFormat("/esoui/art/icons/poi/poi_portal_complete.dds",24,24).." "..Loc("Oblivion_Portals").."\n"
-			..zo_iconFormat("/esoui/art/icons/poi/poi_portal_complete.dds",24,24).." "..Loc("Shadow_Fissures").."\n"
-			..zo_iconFormat("/esoui/art/icons/poi/poi_portal_complete.dds",24,24).." "..Loc("Lava_Lashers").."\n"
-			..zo_iconFormat("/esoui/art/icons/poi/poi_portal_complete.dds",24,24).." "..Loc("Soul_Reaper")
+			tooltipText=function()
+				local text=""
+				for i,data in ipairs(PortalsNames) do
+					text=text..zo_iconFormat("/esoui/art/icons/poi/poi_portal_complete.dds",24,24).." "..data.."\n"
+				end
+				return text
+			end
 		elseif CustomPins[i].name=="pinType_Clockwork_City" then
 			tooltipText=function()
 				local text=""
@@ -7958,7 +7955,7 @@ local PinTooltipCreator={
 		elseif pinTag[1]==76 then
 			icon=CustomPins[76].texture
 			name=pinTag.name
-		elseif pinTag[1]<=4 or pinTag[1]>=30 then	--Main tooltip for achievements
+		elseif pinTag[1]<=4 or pinTag[1]>=FILTER_COUNT then	--Main tooltip for achievements
 			name,desc,_,icon=GetAchievementInfo(pinTag[2])
 			if pinTag[3] then desc=GetAchievementCriterion(pinTag[2], pinTag[3]) end
 		elseif pinTag[1]==5 then
@@ -8112,7 +8109,7 @@ local function OnLoad(eventCode,addonName)
 		return id
 	end
 
-	for i=1,30 do
+	for i=1,FILTER_COUNT do
 		local filter=CustomPins[i]
 		if filter then
 			if filter.section then
@@ -8133,29 +8130,20 @@ local function OnLoad(eventCode,addonName)
 	end
 	SLASH_COMMANDS["/loc"]=function()
 		local x,y=GetMapPlayerPosition("player")
-		local texture = GetMapTileTexture()
-	    local fileName = texture:match("[^\\/]+$"):lower()
-			fileName = fileName:gsub("%.dds$", "")
-			fileName = fileName:gsub("_[0-9]+$", "")
-			--fileName = fileName:gsub("_base$", "")
-		local xStr = string.gsub(math.floor(x*1000)/1000, "^0%.", ".")
-		local yStr = string.gsub(math.floor(y*1000)/1000, "^0%.", ".")
-		StartChatInput(fileName .. '={{'..xStr..','..yStr..','..LastAchivement..'}},')
+	    local fileName=GetMapTileTexture():match("[^\\/]+$"):lower():gsub("%.dds$",""):gsub("_[0-9]+$","")
+		local formattedCoords=string.format("%.3f,%.3f", x, y):gsub("0%.", ".")
+		StartChatInput(fileName..'={{'..formattedCoords..','..LastAchivement..'}},')
 	end
 	SLASH_COMMANDS["/loc1"]=function()
 		local x,y=GetMapPlayerPosition("player")
-		StartChatInput('{'..string.gsub(math.floor(x*1000)/1000,"[0][.]",".")..","..string.gsub(math.floor(y*1000)/1000,"[0][.]",".")..","..LastAchivement..'},')
+		local formattedCoords=string.format("%.3f,%.3f",x,y):gsub("0%.",".")
+		StartChatInput('{'..formattedCoords..","..LastAchivement..'},')
 	end
 	SLASH_COMMANDS["/loc2"]=function()
-		local texturePath = GetMapTileTexture()
-		local fileName = texturePath:match("[^\\/]+$"):lower()
-			fileName = fileName:gsub("%.dds$", "")
-			fileName = fileName:gsub("_[0-9]+$", "")
-		--fileName = fileName:gsub("_base$", "")
-		local x, y = GetMapPlayerWaypoint()
-		local formattedCoords = string.format("%.3f,%.3f", x, y)
-			formattedCoords = formattedCoords:gsub("0%.", ".")
-		StartChatInput(fileName .. '={' .. formattedCoords .. '},')
+		local x,y=GetMapPlayerWaypoint()
+		local fileName=GetMapTileTexture():match("[^\\/]+$"):lower():gsub("%.dds$",""):gsub("_[0-9]+$","")	
+		local formattedCoords=string.format("%.3f,%.3f",x,y):gsub("0%.",".")
+		StartChatInput(fileName..'={'..formattedCoords..'},')
 end
 --	SLASH_COMMANDS["/mpdm"]=function() SavedGlobal.dm=not SavedGlobal.dm d("Map Pins developer mode is now "..(SavedGlobal.dm and "Enabled" or "Disabled")) end
 	SLASH_COMMANDS["/pinsize"]=function(n)
