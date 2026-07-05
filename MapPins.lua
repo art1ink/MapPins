@@ -40,9 +40,11 @@ local Localization={
 		Clockwork_City="Clockwork City",
 		Murkmire="Murkmire",
 		Elsweyr="Elsweyr",
+		Markarth="Markarth",
 		Blackwood="Blackwood",
 		Greymoor="Greymoor",
 		High_Isle="High Isle",
+		Firesong="Firesong",
 		Necrom="Necrom",
 		Gold_Road="Gold Road",
 		Seasons_of_the_Worm_Cult="Seasons of the Worm Cult",
@@ -82,9 +84,11 @@ local Localization={
 		Clockwork_City="Заводной город",
 		Murkmire="Мрачные Трясины",
 		Elsweyr="Эльсвейр",
+		Markarth="Маркарт",
 		Greymoor="Западный скайрим",
 		Blackwood="Черный лес",
 		High_Isle="Высокий Остров",
+		Firesong="Пламенная песнь",
 		Necrom="Некром",
 		Gold_Road="Золотая дорога",
 		Seasons_of_the_Worm_Cult="Сезон культа червя",
@@ -154,6 +158,8 @@ local Localization={
 		Clockwork_City="La Cité mécanique",
 		Murkmire="Tourbevase",
 		Elsweyr="Elsweyr",
+		Markarth="Markarth",
+		Firesong="Firesong",
 		Blackwood="Le Bois Noir",
 		Greymoor="Greymoor",
 		High_Isle="L'Île Haute",
@@ -197,6 +203,8 @@ local Localization={
 		Murkmire="Mangueturvo",
 		Elsweyr="Elsweyr",
 		Blackwood="Blackwood",
+		Markarth="Markarth",
+		Firesong="Firesong",
 		Greymoor="Greymoor",
 		High_Isle="Alta Ilha",
 		Necrom="Necrom",
@@ -224,6 +232,8 @@ local Localization={
 		Clockwork_City="Заводне місто",
 		Murkmire="Муркмайр",
 		Elsweyr="Ельсвейр",
+		Markarth="Маркарт",
+		Firesong="Вогняна пісня",
 		Volendrung="Волендранг",
 		Greymoor="Греймур",
 		Antiquities="Антикваріат",
@@ -270,6 +280,8 @@ local Localization={
 		Greymoor="Greymoor",
 		Antiquities="Antichità", Antiquity_Leads="Indizi di Antichità",
 		Blackwood="Blackwood",
+		Markarth="Markarth",
+		Firesong="Firesong",
 		Imperial_City="Città Imperiale",
 		IC_Bosses="Boss",
 		IC_Respawns="Respawn",
@@ -317,6 +329,8 @@ local Localization={
 		Murkmire = "Murkmire",
 		Elsweyr = "Elsweyr",
 		Blackwood = "Bosque Negro",
+		Markarth="Markarth",
+		Firesong="Firesong",
 		Greymoor = "Greymoor",
 		High_Isle = "Isla Alta",
 		Necrom = "Necrom",
@@ -4926,7 +4940,7 @@ local PortalsNames={
 [3]=Loc("Celestial_Rifts"),
 [4]=Loc("Shadow_Fissures"),
 [5]=Loc("Lava_Lashers"),
-[6]=Loc("Soul_Reaper"),
+[6]=Loc("Soul_Reaper")
 }
 local FILTER_COUNT=32 --Amount of filters
 local CustomPins={	--Types
@@ -5269,7 +5283,7 @@ local MapPinCallback={
 			mapData=mapData[i]
 			if mapData then
 				for i1,pinData in pairs(mapData) do
-					PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name=PortalsNames[pinData[3] ]},pinData[1],pinData[2])					
+					PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name=PortalsNames[pinData[3]]},pinData[1],pinData[2])
 				end
 			end
 		end
