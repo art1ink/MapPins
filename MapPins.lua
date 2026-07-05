@@ -2479,7 +2479,7 @@ local UnknownPOI={
 [12]={155417,3},
 },
 [1146]={--Dragonguard Sanctum
-[2]={155888,3},
+[2]={155888,6},
 },
 }
 --function ShowPoiIcons()for i,icon in pairs(UnknownPOItexture) do d("["..i.."]|t26:26:"..icon.."|t")end end
@@ -5207,8 +5207,8 @@ local MapPinCallback={
 						local extras=0 -- 1= mundus, 2= SetCrafting
 						if icon:find("mundus") then extras = 1 end
 						if icon:find("crafting") then extras = 2 end
-						-- alert if data is missing
-						if extras==1 or extras==2 then if not mapData or not mapData[poiIndex] then d("MapPins: Set Data Missing poiIndex:"..poiIndex.." name: "..poiName.." zoneIndex: "..zoneIndex) extras=0 end end				
+						--check if data is missing
+						if extras==1 or extras==2 then if not mapData or not mapData[poiIndex] then extras=0 end end				
 						local pinTag={[1]=i,name=poiName,texture=icon}
 						if extras==1 then	--Mundus
 							pinTag.desc=MundusDescription[ mapData[poiIndex] ]
@@ -6266,30 +6266,40 @@ end
 		end
 	end
 --]]
---[[	Gets Maps Mundas and Crafting set	
-	SLASH_COMMANDS["/makebase"]=function()
+--[[
+	SLASH_COMMANDS["/mptest"]=function()
+		d("mptest Start")
 		--PoiData=ZO_SavedVars:NewAccountWide("MP_PoiData",1,nil,{})
-		local zoneIndex=GetCurrentMapZoneIndex()
-		local zoneId=GetZoneId(zoneIndex)
-		--PoiData[zoneId]={}
-		local ttt =""
-		for poiIndex=1,GetNumPOIs(zoneIndex) do
-			local poiType=GetPOIType(zoneIndex, poiIndex)
-			local normalizedX, normalizedY, poiPinType, icon, isShownInCurrentMap, linkedCollectibleIsLocked, isDiscovered, isNearby = GetPOIMapInfo(zoneIndex, poiIndex)
-			local poiName, objLevel, poiStartDesc, poiFinishedDesc = GetPOIInfo(zoneIndex, poiIndex)
-			if poiType==2 and poiName~="" then
-			if  icon:find("mundus") or icon:find("crafting") then 
-				ttt=ttt..'['..poiIndex.."] = "..poiName..","
-			--d('['..poiIndex..']={ "'..poiName..'" , '..poiType..' , '..objLevel..' , '..poiPinType..' Known: '..tostring(isDiscovered)..' },')
-				--PoiData[zoneId][poiIndex]=poiName
+		for i=1,10000 do
+			local function checkZone(zoneIndex)
+				local zoneId=GetZoneId(zoneIndex)
+				local mapData=UnknownPOI[zoneId]
+				for poiIndex=1,GetNumPOIs(zoneIndex) do
+					local poiType=GetPOIType(zoneIndex, poiIndex)
+					if poiType~=7 then -- no Houses            
+						local poiName = GetPOIInfo(zoneIndex, poiIndex)
+						if poiName~="" then
+							local _,_,_,icon=GetPOIMapInfo(zoneIndex, poiIndex)
+							local extras=0 -- 1= mundus, 2= SetCrafting
+							if icon:find("mundus") then extras=1 end
+							if icon:find("crafting") then extras=2 end
+							-- alert if data is missing
+							if extras==1 or extras==2 then 
+								if not mapData or not mapData[poiIndex] then 
+									d("MapPins: Set Data Missing poiIndex:"..poiIndex.." name: "..poiName.." zoneId: "..zoneId)
+									--PoiData[zoneId][poiIndex]=poiName
+								end 
+							end                
+						end
+					end
 				end
 			end
+			checkZone(i)
 		end
-		StartChatInput(ttt)
+		d("mptest Done")
 	end
-	--]]
+--]]
 end
-
 EVENT_MANAGER:RegisterForEvent(AddonName,EVENT_ADD_ON_LOADED,OnLoad)
 
 --[[	Helper scripts
