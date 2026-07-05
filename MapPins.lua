@@ -5205,7 +5205,7 @@ local MapPinCallback={
 						if icon:find("mundus") then extras = 1 end
 						if icon:find("crafting") then extras = 2 end
 						-- alert if data is missing
-						if extras==1 or extras==2 then if not mapData[poiIndex] then d("MapPins: Set Data Missing poiIndex:"..poiIndex.." name: "..poiName.." zoneIndex: "..zoneIndex) extras=0 end end				
+						if extras==1 or extras==2 then if not mapData or not mapData[poiIndex] then d("MapPins: Seting poiIndex:"..poiIndex.." name: "..poiName.." zoneIndex: "..zoneIndex) extras=0 end end				
 						local pinTag={[1]=i,name=poiName,texture=icon}
 						if extras==1 then	--Mundus
 							pinTag.desc=MundusDescription[ mapData[poiIndex] ]
