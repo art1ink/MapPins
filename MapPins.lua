@@ -2478,6 +2478,9 @@ local UnknownPOI={
 [11]={156165,9},
 [12]={155417,3},
 },
+[1146]={--Dragonguard Sanctum
+[2]={155888,3},
+},
 }
 --function ShowPoiIcons()for i,icon in pairs(UnknownPOItexture) do d("["..i.."]|t26:26:"..icon.."|t")end end
 local MundusDescription={
