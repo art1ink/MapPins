@@ -5646,7 +5646,7 @@ local function OnAchievementUpdate(achievementId,link)
 		RefreshPins(_G[CustomPins[3].name])
 	elseif FishingAchievements[achievementId] and SavedVars[17] then
 		RefreshPins(_G[CustomPins[17].name])
-	elseif CustomPins[achievementId] then
+	elseif CustomPins[achievementId] and CustomPins[achievementId].ach then
 		RefreshPins(_G[CustomPins[achievementId].name])
 	elseif BossesAchievements[achievementId] then
 		local AchName=GetAchievementCriterion(achievementId,1)
