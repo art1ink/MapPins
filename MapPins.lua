@@ -5203,30 +5203,29 @@ local MapPinCallback={
 			if poiType~=7 then -- no Houses			
 				local poiName = GetPOIInfo(zoneIndex, poiIndex)
 				if poiName~="" then
-						local normalizedX, normalizedY, _, icon, _, _, isDiscovered= GetPOIMapInfo(zoneIndex, poiIndex)
-						local extras=0 -- 1= mundus, 2= SetCrafting
-						if icon:find("mundus") then extras = 1 end
-						if icon:find("crafting") then extras = 2 end
-						--check if data is missing
-						if extras==1 or extras==2 then if not mapData or not mapData[poiIndex] then extras=0 end end				
-						local pinTag={[1]=i,name=poiName,texture=icon}
-						if extras==1 then	--Mundus
-							pinTag.desc=MundusDescription[ mapData[poiIndex] ]
-						elseif extras==2 then--Crafting station						
-							pinTag.name,pinTag.desc=GetSetDescription(mapData[poiIndex])	
-						end
-						--Unknown POI
-						if not isDiscovered and (normalizedX>0 or normalizedY>0) then	
-							local id=_G[CustomPins[i].name] PinManager:CreatePin(id,pinTag,normalizedX,normalizedY)
-							local size=(BUI and BUI.name=="BanditsUserInterface" and BUI.init.MiniMap) and 40*BUI.Vars.PinScale/100 or 40 ZO_MapPin.PIN_DATA[id].size=size
-						elseif extras==1 or extras==2 then	--Mundus, Crafting station known
-							local id=_G[CustomPins[i].name] PinManager:CreatePin(id,pinTag,normalizedX,normalizedY)
-							local size=(BUI and BUI.name=="BanditsUserInterface" and BUI.init.MiniMap) and 40*BUI.Vars.PinScale/100 or 40 ZO_MapPin.PIN_DATA[id].size=size
-						end
+					local normalizedX, normalizedY, _, icon, _, _, isDiscovered= GetPOIMapInfo(zoneIndex, poiIndex)
+					local extras=0 -- 1= mundus, 2= SetCrafting
+					if icon:find("mundus") then extras = 1 end
+					if icon:find("crafting") then extras = 2 end
+					--check if data is missing
+					if extras==1 or extras==2 then if not mapData or not mapData[poiIndex] then extras=0 end end				
+					local pinTag={[1]=i,name=poiName,texture=icon}
+					if extras==1 then	--Mundus
+						pinTag.desc=MundusDescription[ mapData[poiIndex] ]
+					elseif extras==2 then--Crafting station						
+						pinTag.name,pinTag.desc=GetSetDescription(mapData[poiIndex])	
+					end
+					--Unknown POI
+					if not isDiscovered and (normalizedX>0 or normalizedY>0) then	
+						local id=_G[CustomPins[i].name] PinManager:CreatePin(id,pinTag,normalizedX,normalizedY)
+						local size=(BUI and BUI.name=="BanditsUserInterface" and BUI.init.MiniMap) and 40*BUI.Vars.PinScale/100 or 40 ZO_MapPin.PIN_DATA[id].size=size
+					elseif extras==1 or extras==2 then	--Mundus, Crafting station known
+						local id=_G[CustomPins[i].name] PinManager:CreatePin(id,pinTag,normalizedX,normalizedY)
+						local size=(BUI and BUI.name=="BanditsUserInterface" and BUI.init.MiniMap) and 40*BUI.Vars.PinScale/100 or 40 ZO_MapPin.PIN_DATA[id].size=size
 					end
 				end
 			end
-
+		end
 	end,
 	[15]=function(i,subzone)--Psijic portals
 		local mapData=TimeBreach[subzone]
@@ -5291,6 +5290,30 @@ local MapPinCallback={
 			end
 		end
 	end,
+	[70]=function(i,subzone)
+		local mapData=Achievements[subzone]
+		if mapData then
+			mapData=mapData[i]
+			if mapData then
+				for i1,pinData in pairs(mapData) do
+					if GetNumAntiquitiesRecovered(pinData[3])<1 then	--and not DoesAntiquityHaveLead(pinData[3]) then
+						PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name=ZO_CachedStrFormat("<<C:1>>",GetAntiquityName(pinData[3]))},pinData[1],pinData[2])
+					end
+				end
+			end
+		end
+	end,
+	[74]=function(i,subzone)--Blackwood random encounters
+		local mapData=Achievements[subzone]
+		if mapData then
+			mapData=mapData[i]
+			if mapData then
+				for i1,pinData in pairs(mapData) do
+					PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name="Random encounter"},pinData[1],pinData[2])
+				end
+			end
+		end
+	end,	
 	[76]=function(i,subzone)--Imperial City bosses
 		local mapData=ImperialCity[subzone]
 		if mapData then
@@ -5314,7 +5337,7 @@ local MapPinCallback={
 			end
 		end
 	end,
-	[873]=function(i,subzone)--Lightbringer
+		[873]=function(i,subzone)--Lightbringer
 		local mapData=Achievements[subzone]
 		if mapData then
 			mapData=mapData[i]
@@ -5347,30 +5370,6 @@ local MapPinCallback={
 					if Completed==CustomPins[i].done then
 						PinManager:CreatePin(_G[CustomPins[i].name],{pinData[3], pinData[4]},pinData[1],pinData[2])
 					end
-				end
-			end
-		end
-	end,
-	[70]=function(i,subzone)
-		local mapData=Achievements[subzone]
-		if mapData then
-			mapData=mapData[i]
-			if mapData then
-				for i1,pinData in pairs(mapData) do
-					if GetNumAntiquitiesRecovered(pinData[3])<1 then	--and not DoesAntiquityHaveLead(pinData[3]) then
-						PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name=ZO_CachedStrFormat("<<C:1>>",GetAntiquityName(pinData[3]))},pinData[1],pinData[2])
-					end
-				end
-			end
-		end
-	end,
-	[74]=function(i,subzone)--Blackwood random encounters
-		local mapData=Achievements[subzone]
-		if mapData then
-			mapData=mapData[i]
-			if mapData then
-				for i1,pinData in pairs(mapData) do
-					PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name="Random encounter"},pinData[1],pinData[2])
 				end
 			end
 		end
@@ -5421,7 +5420,7 @@ local function MapPinAddCallback(i)
 				end
 			end
 		end
-	elseif i>=FILTER_COUNT then
+	elseif i>FILTER_COUNT then
 		local mapData=Achievements[subzone]
 		if mapData then
 			mapData=mapData[i]
@@ -5486,7 +5485,7 @@ local function CompassPinAddCallback(i)
 				end
 			end
 		end
-	elseif i>=50 then
+	elseif i>FILTER_COUNT then
 		local mapData=Achievements[subzone]
 		local num=1
 		if mapData then
@@ -5503,15 +5502,19 @@ local function CompassPinAddCallback(i)
 							local _,c3,r3=GetAchievementCriterion(869,zone)
 							Completed=(c1+c2+c3)>=(r1+r2+r3)
 						end
-					elseif pinData[4] then
+					elseif i==1383 then
 						local name,c1,r1=GetAchievementCriterion(pinData[3],pinData[4])
+						AchName=name
+						Completed=c1>=r1	
+					elseif pinData[3] then
+						local name,c1,r1=GetAchievementCriterion(i,pinData[3])
 						AchName=name
 						Completed=c1>=r1
 					else
-						Completed=IsAchievementComplete(pinData[3])
+						Completed=IsAchievementComplete(i)
 					end
 					if SavedVars.Show[i] then Completed=false end
-					local HaveItem=(AchievementItems[ pinData[3] ] and AchievementItems[ pinData[3] ][ pinData[4] ]) and true or false
+					local HaveItem=(AchievementItems[i] and AchievementItems[i][pinData[3] ]) and true or false
 					if Completed==CustomPins[i].done and HaveItem==CustomPins[i].done then
 						COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,AchName..num,pinData[1],pinData[2])
 						num=num+1
@@ -5565,7 +5568,7 @@ local function CompassPinAddCallback(i)
 end
 
 local function AddCompassCustomPin(id,i)
-	if COMPASS_PINS and (i==3 or i==5 or i==6 or i==7 or i==15 or i==16 or i>=50) then
+	if COMPASS_PINS and (i==3 or i==5 or i==6 or i==7 or i==15 or i==16 or i>FILTER_COUNT) then
 		local pin=CustomPins[i].filter or i
 		if SavedVars[pin] then
 --			pl("["..id.."] Compass pin "..i.." enabled")
@@ -6059,7 +6062,7 @@ local PinTooltipCreator={
 		elseif pinTag[1]<=4 then	-- Tooltip for Bosses & Skyshards
 			name,desc,_,icon=GetAchievementInfo(pinTag[2])
 			if pinTag[3] then desc=GetAchievementCriterion(pinTag[2], pinTag[3]) end
-		elseif pinTag[1]>=FILTER_COUNT then	--Main tooltip for achievements
+		elseif pinTag[1]>FILTER_COUNT then	--Main tooltip for achievements
 			name,desc,_,icon=GetAchievementInfo(pinTag[1])
 			if pinTag[2] then desc=GetAchievementCriterion(pinTag[1], pinTag[2]) pinTag[3]=pinTag[2] end
 		elseif pinTag[1]==5 then
