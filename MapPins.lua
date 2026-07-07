@@ -5585,6 +5585,7 @@ end
 local function ScanInventory()
 	for _, itemData in pairs(SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_BACKPACK)) do
 		if itemData and itemData.itemType==ITEMTYPE_TROPHY then
+			local itemId=GetItemId(BAG_BACKPACK,itemData.slotIndex)
 			for achId,achTable in ipairs(TrophyTable) do
 				if achTable[itemId] then 
 					AchievementItems[achId][achTable[itemId] ]=true
