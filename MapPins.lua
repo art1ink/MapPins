@@ -5668,7 +5668,7 @@ local function OnAchievementUpdate(achievementId,link)
 		RefreshPins(_G[CustomPins[17].name])
 	elseif CustomPins[achievementId] and CustomPins[achievementId].ach then
 		RefreshPins(_G[CustomPins[achievementId].name])
-	elseif achievementId == (1379 or 1380 or 1381 or 1382) then
+	elseif achievementId==1379 or achievementId==1380 or achievementId==1381 or achievementId==1382 then
 		RefreshPins(_G[CustomPins[1383].name])
 	elseif BossesAchievements[achievementId] then
 		local AchName=GetAchievementCriterion(achievementId,1)
