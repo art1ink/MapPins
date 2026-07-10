@@ -741,15 +741,15 @@ u48_overland_base={--Seasons of the Worm Cult (Western and Eastern Solstice) by 
 {.35,.695,4405,7,566},
 {.573,.616,4405,8,567},
 {.476,.56,4405,9,568},
-{.659,.366,4461,1,579},--10
-{.619,.505,4461,2,580},--11
-{.724,.686,4461,3,587},--12
-{.733,.572,4461,4,578},--13
-{.755,.359,4461,5,573},--14
-{.654,.42,4461,6,574},--15
-{.809,.504,4461,7,575},--16
-{.831,.638,4461,8,576},--17
-{.757,.685,4461,9,577}},--18
+{.659,.366,4461,10,579,1},--10
+{.619,.505,4461,11,580,2},--11
+{.724,.686,4461,12,587,3},--12
+{.733,.572,4461,13,578,4},--13
+{.755,.359,4461,14,573,5},--14
+{.654,.42,4461,15,574,6},--15
+{.809,.504,4461,16,575,7},--16
+{.831,.638,4461,17,576,8},--17
+{.757,.685,4461,18,577,9}},--18
 u48_base_calindvalegardenspd={{.367,.51,4461,6,574}},--15
 u46_base_lotwc={{.369,.792,4461,7,575}},--16
 u48_ssl_delve_base_1={{.205,.478,4461,8,576}},--17
@@ -1142,15 +1142,15 @@ craglorn_base={-- Craglorn
 {.146,.459,727,7,328},
 {.214,.575,727,8,329},
 {.813,.575,727,9,330},
-{.468,.663,727,10,331},
-{.321,.654,727,11,332},
-{.537,.540,727,12,333},
-{.282,.264,912,13,334},-- Upper Craglorn
-{.582,.425,912,14,335},
-{.400,.309,912,15,336},
-{.662,.331,912,16,337},
-{.086,.306,912,17,338},
-{.547,.251,912,18,339}},
+{.468,.663,727,10,331,1},
+{.321,.654,727,11,332,2},
+{.537,.540,727,12,333,3},
+{.282,.264,912,13,334,4},-- Upper Craglorn
+{.582,.425,912,14,335,5},
+{.400,.309,912,15,336,6},
+{.662,.331,912,16,337,7},
+{.086,.306,912,17,338,8},
+{.547,.251,912,18,339,9}},
 molavar_base={{.747,.352,727,1,322}},
 rkundzelft_base={{.715,.382,727,2,323}},
 kardala_base={{.612,.455,727,3,324}},
@@ -5377,18 +5377,6 @@ local MapPinCallback={
 	end,
 }
 
-local function GetSkyshardPinStatus(pinData)
-	local skyshardId=pinData[5]
-	if not skyshardId then
-		local zoneId=GetSkyshardAchievementZoneId(pinData[3])
-		if zoneId and zoneId>0 then
-			skyshardId=GetZoneSkyshardId(zoneId,pinData[4])
-		end
-	end
-	if not skyshardId or skyshardId==0 then return nil end
-	return GetSkyshardDiscoveryStatus(skyshardId)
-end
-
 local function MapPinAddCallback(i)
 --	d("["..tostring(i).."] id="..tostring(PinId[i]).." enabled:"..tostring(PinManager:IsCustomPinEnabled(PinId[i])))
 	if not CustomPins[i] then d("MapPins: "..tostring(i).." is wrong pin type.") return end
@@ -5421,15 +5409,13 @@ local function MapPinAddCallback(i)
 		if i==1 or i==2 then mapData=Bosses[subzone] elseif i==3 or i==4 then mapData=SkyShards[subzone] end
 		if mapData then
 			for _,pinData in pairs(mapData) do
-				local AchName,Completed,Required
+				local AchName,Completed,Required=GetAchievementCriterion(pinData[3],pinData[6] or pinData[4])
 				if i==3 or i==4 then
-					Completed=GetSkyshardPinStatus(pinData) or 0
+					Completed=GetSkyshardDiscoveryStatus(GetZoneSkyshardId(GetSkyshardAchievementZoneId(pinData[3]),pinData[4]))
 					Required=2
-				else
-					AchName,Completed,Required=GetAchievementCriterion(pinData[3],pinData[4])
 				end
 				if (Completed==Required)==CustomPins[i].done then
-					PinManager:CreatePin(_G[CustomPins[i].name],{i,pinData[3],pinData[4],pinData[5]},pinData[1],pinData[2])
+					PinManager:CreatePin(_G[CustomPins[i].name],{i,pinData[3],pinData[4],pinData[5],pinData[6]},pinData[1],pinData[2])
 				end
 			end
 		end
@@ -5480,13 +5466,10 @@ local function CompassPinAddCallback(i)
 		local mapData if (i==3 or i==4) then mapData=SkyShards[subzone] else mapData=Bosses[subzone] end
 		if mapData then
 			for _,pinData in pairs(mapData) do
-				local AchName,Completed,Required
+				local AchName,Completed,Required=GetAchievementCriterion(pinData[3],pinData[6] or pinData[4])
 				if i==3 or i==4 then
-					AchName=GetAchievementCriterion(pinData[3],pinData[4])
-					Completed=GetSkyshardPinStatus(pinData) or 0
+					Completed=GetSkyshardDiscoveryStatus( GetZoneSkyshardId(GetSkyshardAchievementZoneId(pinData[3]),pinData[4]))
 					Required=2
-				else
-					AchName,Completed,Required=GetAchievementCriterion(pinData[3],pinData[4])
 				end
 				if (Completed==Required)==CustomPins[i].done and AchName~="" then
 					COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,AchName,pinData[1],pinData[2])
@@ -6084,7 +6067,7 @@ local PinTooltipCreator={
 			name=pinTag.name
 		elseif pinTag[1]<=4 then	-- Tooltip for Bosses & Skyshards
 			name,desc,_,icon=GetAchievementInfo(pinTag[2])
-			if pinTag[3] then desc=GetAchievementCriterion(pinTag[2], pinTag[3]) end
+			if pinTag[3] then desc=GetAchievementCriterion(pinTag[2], pinTag[5] or pinTag[3]) end
 		elseif pinTag[1]>FILTER_COUNT then	--Main tooltip for achievements
 			name,desc,_,icon=GetAchievementInfo(pinTag[1])
 			if pinTag[2] then desc=GetAchievementCriterion(pinTag[1], pinTag[2]) pinTag[3]=pinTag[2] end
