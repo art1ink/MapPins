@@ -5681,10 +5681,8 @@ local function OnAchievementUpdate(achievementId,link)
 	end
 end
 local function OnSkyshardsUpdated()
-	zo_callLater(function()
-		PinManager:RefreshCustomPins(_G[CustomPins[3].name])
-		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[3].name) end
-	end,1000)
+	PinManager:RefreshCustomPins(_G[CustomPins[3].name])
+	if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[3].name) end
 end
 local function OnBookLearned(_,categoryIndex)
 	if categoryIndex==1 then
