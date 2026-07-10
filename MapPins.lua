@@ -5377,6 +5377,18 @@ local MapPinCallback={
 	end,
 }
 
+local function GetSkyshardPinStatus(pinData)
+	local skyshardId=pinData[5]
+	if not skyshardId then
+		local zoneId=GetSkyshardAchievementZoneId(pinData[3])
+		if zoneId and zoneId>0 then
+			skyshardId=GetZoneSkyshardId(zoneId,pinData[4])
+		end
+	end
+	if not skyshardId or skyshardId==0 then return nil end
+	return GetSkyshardDiscoveryStatus(skyshardId)
+end
+
 local function MapPinAddCallback(i)
 --	d("["..tostring(i).."] id="..tostring(PinId[i]).." enabled:"..tostring(PinManager:IsCustomPinEnabled(PinId[i])))
 	if not CustomPins[i] then d("MapPins: "..tostring(i).." is wrong pin type.") return end
@@ -5411,9 +5423,7 @@ local function MapPinAddCallback(i)
 			for _,pinData in pairs(mapData) do
 				local AchName,Completed,Required
 				if i==3 or i==4 then
-					local SkyShardId=GetZoneSkyshardId(GetSkyshardAchievementZoneId(pinData[3]))
-					if subzone == "u48_overland_base" then SkyShardId=pinData[5] end
-					Completed=GetSkyshardDiscoveryStatus(SkyShardId,pinData[4])
+					Completed=GetSkyshardPinStatus(pinData) or 0
 					Required=2
 				else
 					AchName,Completed,Required=GetAchievementCriterion(pinData[3],pinData[4])
@@ -5470,7 +5480,14 @@ local function CompassPinAddCallback(i)
 		local mapData if (i==3 or i==4) then mapData=SkyShards[subzone] else mapData=Bosses[subzone] end
 		if mapData then
 			for _,pinData in pairs(mapData) do
-				local AchName,Completed,Required=GetAchievementCriterion(pinData[3],pinData[4])
+				local AchName,Completed,Required
+				if i==3 or i==4 then
+					AchName=GetAchievementCriterion(pinData[3],pinData[4])
+					Completed=GetSkyshardPinStatus(pinData) or 0
+					Required=2
+				else
+					AchName,Completed,Required=GetAchievementCriterion(pinData[3],pinData[4])
+				end
 				if (Completed==Required)==CustomPins[i].done and AchName~="" then
 					COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,AchName,pinData[1],pinData[2])
 				end
@@ -5681,8 +5698,10 @@ local function OnAchievementUpdate(achievementId,link)
 	end
 end
 local function OnSkyshardsUpdated()
-    PinManager:RefreshCustomPins(_G[CustomPins[3].name])
-    if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[3].name) end
+	zo_callLater(function()
+		PinManager:RefreshCustomPins(_G[CustomPins[3].name])
+		if COMPASS_PINS then COMPASS_PINS:RefreshPins(CustomPins[3].name) end
+	end,1000)
 end
 local function OnBookLearned(_,categoryIndex)
 	if categoryIndex==1 then
