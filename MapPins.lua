@@ -5123,6 +5123,17 @@ local function GetFishingAchievement(subzone)
 	return false
 end
 
+local function IsAbilityUnlocked(id)
+	for line=1,GetNumSkillLines(5) do
+		for ability=1,GetNumSkillAbilities(5,line) do
+			if GetSkillAbilityId(5,line,ability,false)==id then
+				return select(6,GetSkillAbilityInfo(5,line,ability))
+			end
+		end
+	end
+	return false
+end
+
 --Callbacks
 local MapPinCallback={
 	[5]=function(i,subzone)
@@ -5169,7 +5180,7 @@ local MapPinCallback={
 		local x,y=GetMapPlayerPosition("player")
 		local mult=GetMapContentType()==MAP_CONTENT_DUNGEON and 4 or 1
 		if mapData then
-			local FindersKeepers=select(6,GetSkillAbilityInfo(5,5,1))
+			local FindersKeepers=IsAbilityUnlocked(74580)
 			for chType, chData in pairs(mapData) do
 				for chest, pinData in pairs(chData) do
 					if math.abs(pinData[1]-x)<ChestsRange*mult and math.abs(pinData[2]-y)<ChestsRange*mult then
@@ -5551,10 +5562,10 @@ local function CompassPinAddCallback(i)
 	elseif i==7 then
 		local mapData=ChestData[subzone]
 		if mapData then
-			local FindersKeepers=select(6,GetSkillAbilityInfo(5,4,1))
+			local FindersKeepers=IsAbilityUnlocked(74580)
 			for chType, chData in pairs(mapData) do
 				for chest, pinData in pairs(chData) do
-					if chType==1 or FindersKeepers then
+					if chType==1 or (chType==2 and FindersKeepers) then
 						COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,"Chest_"..subzone.."_"..chType.."_"..chest,pinData[1],pinData[2])
 					end
 				end
