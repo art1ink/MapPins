@@ -5380,7 +5380,6 @@ local MapPinCallback={
 			mapData=mapData[i]
 			if mapData then
 				for i1,pinData in pairs(mapData) do
-				d(pinData)
 					PinManager:CreatePin(_G[CustomPins[i].name],{[1]=i,name=Loc("Dynamic_Encounters")},pinData[1],pinData[2])
 				end
 			end
