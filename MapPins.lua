@@ -5054,7 +5054,7 @@ local CustomPins={	--Types
 	[14]={section=true,name="Summerset",id={},pin={},texture="/esoui/art/treeicons/tutorial_idexicon_summerset_up.dds",	--"/esoui/art/icons/store_summerset_collectable.dds",
 		[2099]={name="pinType_Summerset_Relics",done=false,ach=true,maxDistance=0.05,level=101,texture="/esoui/art/icons/quest_strosmkai_open_treasure_chest.dds",k=1},
 		[2211]={name="pinType_Message_in_Bottle",done=false,ach=true,maxDistance=0.05,level=100,texture="/esoui/art/icons/crafting_stoneware_bottle_003.dds",k=1},
-		[2171]={name="pinType_Summerset_world_event",done=false,ach=true,maxDistance=0.05,level=101,texture="/esoui/art/miscellaneous/help_icon.dds",k=1.25,def_texture="/esoui/art/icons/achievement_su_rds_01.dds"},
+		[2271]={name="pinType_Summerset_world_event",done=false,ach=true,maxDistance=0.05,level=101,texture="/esoui/art/miscellaneous/help_icon.dds",k=1.25,def_texture="/esoui/art/icons/achievement_su_rds_01.dds"},
 		},
 	[15]={name="pinType_Time_Rifts",done=false,id={},pin={},maxDistance=0.05,level=101,texture="/"..AddonName.."/Treasure_1-2.dds",k=1.8},
 	[16]={name="pinType_Shrines",done=false,id={},pin={},maxDistance=0.05,level=101,texture="/esoui/art/icons/poi/poi_daedricruin_incomplete.dds",k=1.25},
