@@ -1109,7 +1109,7 @@ alikr_base={-- Alik'r Desert
 {.705,.389,556,16,242}},
 sentinel_base={{.381,.645,556,1,227}},
 bergama_base={{.426,.616,556,4,230}},
-kozanset_base={{.650,.334,556,7,233}},
+kozanset_base={{.650,.334,556,7,233},{.472,.118,556,8,234}},
 aldunz_base={{.146,.436,556,10,236}},
 coldrockdiggings_base={{.903,.262,556,11,237}},
 divadschagrinmine_base={{.408,.533,556,12,238}},
@@ -1134,9 +1134,9 @@ auridon_base={-- Auridon
 {.543,.698,695,14,106},
 {.577,.321,695,15,107},
 {.419,.675,695,16,108}},
-vulkhelguard_base={{.396,.405,695,1,93}},
+vulkhelguard_base={{.396,.405,695,1,93},{.926,.078,695,2,94}},
 skywatch_base={{.546,.553,695,4,96}},
-bewan_base={{0.869,0.7,695,10,102}},
+bewan_base={{.869,.7,695,10,102}},
 delsclaim_base={{.316,.219,695,11,103}},
 entilasfolly_base={{.818,.791,695,12,104}},
 mehrunesspite_base={{.694,.256,695,13,105}},
@@ -1422,7 +1422,7 @@ grahtwood_base={-- Grahtwood
 {.523,.598,682,15,123},
 {.658,.597,682,16,124}},
 haven_base={{.384,.249,682,1,109}},
-eldenrootgroundfloor_base={{.754,.626,682,4,112}},
+eldenrootgroundfloor_base={{.754,.626,682,4,112},{.086,.675,682,9,117}},
 nesalas_base={{.575,.577,682,10,118}},
 dessicatedcave_base={{.620,.463,682,11,119}},
 burrootkwamamine_base={{.781,.443,682,12,120}},
@@ -1473,9 +1473,9 @@ malabaltor_base={-- Malabal Tor
 {.623,.829,684,14,154},
 {.380,.623,684,15,155},
 {.385,.406,684,16,156}},
-velynharbor_base={{.790,.450,684,1,141}},
+velynharbor_base={{.790,.450,684,1,141},{.905,.24,684,2,142}},
 vulkwasten_base={{.462,.250,684,5,145}},
-baandaritradingpost_base={{.196,.259,684,10,150}},
+baandaritradingpost_base={{.196,.259,684,10,150},{.104,.55,684,8,148}},
 blackvineruins_base={{.379,.875,684,10,150}},
 deadmansdrop_base={{.191,.135,684,11,151}},
 hoarvorpit_base={{.440,.128,684,12,152}},
@@ -1501,7 +1501,7 @@ reapersmarch_base={-- Reaper's March
 {.753,.128,685,14,170},
 {.633,.395,685,15,171},
 {.282,.163,685,16,172}},
-dune_base={{.587,.338,685,7}},
+dune_base={{.587,.338,685,7,163}},
 kunasdelve_base={{.752,.434,685,10,166}},
 thibautscairn_base={{.778,.666,685,11,167}},
 weepingwindcave_base={{.376,.830,685,12,168}},
@@ -1600,7 +1600,7 @@ bleakrock_base={-- Bleakrock Isle
 {.774,.438,398,1,1},
 {.498,.225,398,2,2},
 {.278,.402,398,3,3}},
-hozzinsfolley_base={{.329,.809,398,2,2}},
+hozzinsfolley_base={{.329,.809,398,3,3}},
 stormhaven_base={-- Stormhaven
 {.150,.348,515,1,195},
 {.220,.203,515,2,196},
@@ -1745,6 +1745,7 @@ clockwork_base={-- Clockwork
 ccunderground_base={{.850,.720,1844,3,402}},
 ccunderground02_base={{.850,.720,1844,3,402}},
 brassfortress_base={
+{.397,.958,1844,1,400},
 {.457,.555,1844,3,402},
 {.345,.553,1844,4,403}},
 hallsofregulation_base={{.369,.564,1844,5,404}},
@@ -1931,8 +1932,8 @@ westernskryim_base={
 },
 belarata_base={{.668,.795,18,1}},
 abahslanding_base={{.183,.781,18,5}},
-garlasagea_base={{0.581,0.75,19,1}},
-goldcoast_base={{0.858,0.505,19,6},{.828,.615,18,7}},
+garlasagea_base={{.581,.75,19,1}},
+goldcoast_base={{.858,.505,19,6},{.828,.615,18,7}},
 kvatchcity_base={{.287,.514,9,8}},
 clockwork_base={{.786,.531,8,4},{.442,.505,15,5},{.877,.606,17,4},{.689,.631,20,8},{.687,.429,23,1},{.413,.575,26,6}},
 shimmerene_base={{.302,.435,25,6}},
@@ -2281,7 +2282,7 @@ evermore_base={{.191,.648,57781,1}},
 bangkorai_base={
 {.407,.484,190927},--Legion's Arrival Clue (Bangkorai)
 {.522,.544,187904},--Knights of Saint Pelin Clue (Bangkorai)
-{.59,.4,153641,"2hhammer"},{.433,.270,43619},{.614,.208,43620},{.718,.383,43621},{.325,.455,43622},{.329,.693,43623},{.644,.692,43624},{.609,.759,44929},{.527,.162,57810,1},{.580,.376,57764,1},{.358,.384,57781,1},{.473,.615,57795,1},{.670,.702,57827,1},{0.467,0.693,139434,4}},
+{.59,.4,153641,"2hhammer"},{.433,.270,43619},{.614,.208,43620},{.718,.383,43621},{.325,.455,43622},{.329,.693,43623},{.644,.692,43624},{.609,.759,44929},{.527,.162,57810,1},{.580,.376,57764,1},{.358,.384,57781,1},{.473,.615,57795,1},{.670,.702,57827,1},{.467,.693,139434,4}},
 coldharbour_base={
 {.657,.376,187896},--Ceporah's Insight Clue (Coldharbour, The Wailing Maw)
 {.406,.832,43685},{.409,.568,43686},{.603,.692,43687},{.755,.776,43688},{.432,.454,43689},{.497,.399,43690},{.552,.414,44932},{.745,.664,57796,1},{.731,.703,57797,1},{.672,.760,57766,1},{.630,.699,57767,1},{.248,.618,57811,1},{.261,.676,57812,1},{.413,.775,57783,1},{.426,.700,57784,1},{.454,.505,57828,1},{.550,.447,57829,1},{.546,.74,139435,4},{.413,.813,139436,4}},
@@ -4425,7 +4426,7 @@ summerset_base={
 --Message in Bottle
 [2211]={{.366,.4,1},{.689,.539,1},{.247,.547,1},{.346,.445,1},{.273,.427,1},{.272,.508,1},{.732,.74,1},{.454,.73,1}},
 --A Book and its Cover
-[2171]={{.328,.487,5},{.513,.217,5},{.561,.288,5},{.22,.389,5},{.544,.235,5},{.652,.604,5},{.446,.468,5},{.549,.364,5},{0.297,0.3,5},{.626,.532,5}},
+[2171]={{.328,.487,5},{.513,.217,5},{.561,.288,5},{.22,.389,5},{.544,.235,5},{.652,.604,5},{.446,.468,5},{.549,.364,5},{.297,.3,5},{.626,.532,5}},
 [70]={{.397,.504,102,3}},--Alinor Allemande--Provided by remosito
 },
 shimmerene_base={
@@ -4459,7 +4460,7 @@ ccunderground_base={
 [1958]={{.496,.191,11}}},	--Calculus
 clockwork_base={
 [27]={{.201,.534,4},{.366,.695,4},{.843,.682,4},{.536,.694,4},{.739,.557,4},{.731,.506,4},{.725,.464,4},{.746,.49,4},{.766,.501,4},{.78,.48,4},{.749,.678,4},{.156,.547,4}},--Shadow Fissures
-[1958]={{0.177,0.596,12}},--Introspection
+[1958]={{.177,.596,12}},--Introspection
 },
 brassfortress_base={
 [1958]={{.646,.649,13}}},	--Reason
@@ -6331,8 +6332,9 @@ local function OnLoad(eventCode,addonName)
 		end
 	end
 --]]	
----[[
+--[[
 	local function ShowSkyShardsOnMap()
+		--SavedGlobal.Failed={}
 		local fileName=GetMapTileTexture():match("[^\\/]+$"):lower():gsub("%.dds$", ""):gsub("_[0-9]+$", "")
 		local mapData = SkyShards[fileName]
 		local ach={}	
@@ -6393,6 +6395,52 @@ local function OnLoad(eventCode,addonName)
 							d("mapName "..fileName.." skyID "..skyshardId.." Crit "..foundCriterion)
 						end
 					end
+				end
+			end
+			local achID = mapData[1]
+			if achID then
+				achID = achID[3]	
+
+-- Uncomment mapid for this to work 
+-- checks for missed skyShards in deleves
+				
+				--local mapId = SavedGlobal.MapNameToMapId[fileName]
+				if mapId then
+					WORLD_MAP_MANAGER:SetMapById(mapId)
+				local zoneId= GetZoneId(GetCurrentMapZoneIndex())
+				local skyshardsInZone = GetNumSkyshardsInZone(zoneId)
+				for skyshardIndex=1, skyshardsInZone do	
+					local skyshardId = GetZoneSkyshardId(zoneId,skyshardIndex)	
+					local pinX,pinY ,inMap= GetNormalizedPositionForSkyshardId(skyshardId)
+					if inMap  and pinX > 0 and pinX < 1 and pinY > 0 and pinY < 1 then
+					
+					local NotFound = true
+					for _,pinData in pairs(mapData) do
+						if pinData[5] ==skyshardId then NotFound = false end
+					end
+					if NotFound then
+						local foundCriterion=0
+						local hint=GetSkyshardHint(skyshardId)
+						--find the Criterion for skyshardId
+						for criterionIndex=1,GetNumSkyshardsInAchievement(achID) do
+							local achname = GetAchievementCriterion(achID,criterionIndex)
+							if hint == achname then
+								foundCriterion=criterionIndex 
+							end
+						end		
+						local pinsss
+						for _,pinData in pairs(mapData) do
+						pinsss=pinData
+						end
+						if not SavedGlobal.Failed[fileName] then SavedGlobal.Failed[fileName]={} end
+						local outg = "{"..pinX..","..pinY..","..achID..","..foundCriterion..","..skyshardId.."},  "
+						if pinsss then outg = outg..pinsss[1]..","..pinsss[2]..","..pinsss[3]..","..pinsss[4].."," if pinsss[5] then outg = outg..pinsss[5] end end
+						--SavedGlobal.Failed[fileName][skyshardId]=outg
+						--d("BAD ID mapName "..fileName.." skyID "..skyshardId)
+						d(outg)
+					end
+					end
+				end
 				end
 			end
 		end
