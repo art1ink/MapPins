@@ -1210,15 +1210,15 @@ craglorn_base={-- Craglorn
 {.146,.459,727,7,328},
 {.214,.575,727,8,329},
 {.813,.575,727,9,330},
-{.468,.663,727,10,331},-- Upper Craglorn
+{.468,.663,727,10,331},
 {.321,.654,727,11,332},
 {.537,.540,727,12,333},
-{.282,.264,912,13,334},
-{.582,.425,912,14,335},
-{.400,.309,912,15,336},
-{.662,.331,912,16,337},
-{.086,.306,912,17,338},
-{.547,.251,912,18,339}},
+{.282,.264,912,1,334},-- Upper Craglorn
+{.582,.425,912,2,335},
+{.400,.309,912,3,336},
+{.662,.331,912,4,337},
+{.086,.306,912,5,338},
+{.547,.251,912,6,339}},
 molavar_base={{.747,.352,727,1,322}},
 rkundzelft_base={{.715,.382,727,2,323}},
 kardala_base={{.612,.455,727,3,324}},
@@ -4082,7 +4082,7 @@ blackreach_base={
 {.919,.455,13},	--Pan Flute of Morachellis 156807
 {.502,.358,14},	--Reman War Drum 156808
 {.275,.674,15}},	--Ateian Fife 160510
-[2959]={--Mining Sample Collector
+[2759]={--Mining Sample Collector
 {.482,.781,1},--Kelbarn's Mining Samples	7373
 {.073,.413,2},--Inguya's Mining Samples	7375
 {.622,.303,3},--Reeh-La's Mining Samples	7377
@@ -4425,7 +4425,7 @@ summerset_base={
 --Message in Bottle
 [2211]={{.366,.4,1},{.689,.539,1},{.247,.547,1},{.346,.445,1},{.273,.427,1},{.272,.508,1},{.732,.74,1},{.454,.73,1}},
 --A Book and its Cover
-[2271]={{.328,.487,5},{.513,.217,5},{.561,.288,5},{.22,.389,5},{.544,.235,5},{.652,.604,5},{.446,.468,5},{.549,.364,5},{0.297,0.3,5},{.626,.532,5}},
+[2171]={{.328,.487,5},{.513,.217,5},{.561,.288,5},{.22,.389,5},{.544,.235,5},{.652,.604,5},{.446,.468,5},{.549,.364,5},{0.297,0.3,5},{.626,.532,5}},
 [70]={{.397,.504,102,3}},--Alinor Allemande--Provided by remosito
 },
 shimmerene_base={
@@ -4477,61 +4477,6 @@ southernelsweyr_base={	--Topal Corsair
 elsweyr_base={{.484,.221},{.442,.671},{.23,.632},{.443,.671},{.669,.491},{.293,.623},{.421,.462},{.635,.265},{.445,.527}},
 clockwork_base={{.634,.604,2047}},
 --]]
-local AchievementsId={
-[704]=40,
-[1082]=41,
-[872]=42,
-[869]=43,
-[871]=43,
-[873]=43,
-[716]=44,
-[1247]=45,
-[1250]=47,
-[1383]=48,
-[1349]=49,
-[1824]=50,
-[1712]=51,
-[1827]=52,
-[2099]=53,
-[2211]=54,
-[2171]=55,
-[1958]=56,
-[2320]=57,
-[2341]=58,
-[2355]=59,
-[2330]=60,
-[2358]=61,
-[2357]=62,
-[2463]=63,
-[2534]=64,
-[2619]=65,
-[2621]=66,
-[2620]=67,
-[2669]=68,
-[2759]=69,
-[3083]=71,
-[3081]=72,
-[3082]=73,
-[3080]=75,
-[3298]=80,
-[3224]=81,
-[3299]=82,
-[3295]=83,
-[3678]=84,
-[3677]=85,
-[3675]=86,
-[3749]=87,
-[3968]=88,
-[4040]=89,
-[4041]=90,
-[4432]=91,
-[4433]=92,
-[4435]=93,
-[4434]=94,
-[4455]=95,
-[4456]=96,
-[4457]=97,
-}
 local ZoneAchievement={
 auridon=1,
 grahtwood=2,
@@ -4590,7 +4535,7 @@ craglorn_base={{.177,.222,9},{.394,.383,9},{.242,.579,9},{.77,.687,9},{.654,.604
 }
 local PinManager,CompassPinManager
 local UpdatingMapPin,UpdatingCompassPin,PinId={},{},{}
-local SavedVars,DefaultVars={},{[1]=true,[2]=true,[3]=true,[4]=false,[5]=true,[6]=false,[7]=true,[8]=true,[9]=false,[10]=false,[11]=false,[12]=false,[13]=false,[14]=false,[15]=false,[16]=false,[17]=false,[18]=false,[19]=false,[21]=true,TimeBreachClosed={},Show={}}
+local SavedVars,DefaultVars={},{[1]=true,[2]=true,[3]=true,[4]=false,[5]=true,[6]=false,[7]=true,[8]=true,[9]=false,[10]=false,[11]=false,[12]=false,[13]=false,[14]=false,[15]=false,[16]=false,[17]=false,[18]=false,[19]=false,[21]=true,TimeBreachClosed={},Show={},AllFish=false}
 local SavedGlobal,DefaultGlobal={},{pinsize=20}
 local ChestsRange,ChestsLooted,LastZone,LastAchivement,PsijicSkillLine=.08,0,0,0,4
 local ChronoglerTablet={[6771]=1,[141719]=2,[141720]=3,[141721]=4,[141722]=5,[141723]=6,[141724]=7,[141725]=8,[141726]=9,[141728]=11,[141727]=10,[141729]=12}
@@ -5054,7 +4999,7 @@ local CustomPins={	--Types
 	[14]={section=true,name="Summerset",id={},pin={},texture="/esoui/art/treeicons/tutorial_idexicon_summerset_up.dds",	--"/esoui/art/icons/store_summerset_collectable.dds",
 		[2099]={name="pinType_Summerset_Relics",done=false,ach=true,maxDistance=0.05,level=101,texture="/esoui/art/icons/quest_strosmkai_open_treasure_chest.dds",k=1},
 		[2211]={name="pinType_Message_in_Bottle",done=false,ach=true,maxDistance=0.05,level=100,texture="/esoui/art/icons/crafting_stoneware_bottle_003.dds",k=1},
-		[2271]={name="pinType_Summerset_world_event",done=false,ach=true,maxDistance=0.05,level=101,texture="/esoui/art/miscellaneous/help_icon.dds",k=1.25,def_texture="/esoui/art/icons/achievement_su_rds_01.dds"},
+		[2171]={name="pinType_Summerset_world_event",done=false,ach=true,maxDistance=0.05,level=101,texture="/esoui/art/miscellaneous/help_icon.dds",k=1.25,def_texture="/esoui/art/icons/achievement_su_rds_01.dds"},
 		},
 	[15]={name="pinType_Time_Rifts",done=false,id={},pin={},maxDistance=0.05,level=101,texture="/"..AddonName.."/Treasure_1-2.dds",k=1.8},
 	[16]={name="pinType_Shrines",done=false,id={},pin={},maxDistance=0.05,level=101,texture="/esoui/art/icons/poi/poi_daedricruin_incomplete.dds",k=1.25},
@@ -5174,6 +5119,7 @@ end
 
 local function GetFishingAchievement(subzone)
 --	/script local AchName=GetAchievementCriterion(2295,7) StartChatInput(AchName)
+	if SavedVars.AllFish then return {[1]=true,[2]=true,[3]=true,[4]=true} end
 	local id=FishingZones[subzone] or FishingZones[GetCurrentMapZoneIndex()]
 	if id then
 		local total={Lake=0,Foul=0,River=0,Salt=0,Oily=0,Mystic=0,Running=0}
@@ -6341,7 +6287,7 @@ local function OnLoad(eventCode,addonName)
 		local fileName=GetMapTileTexture():match("[^\\/]+$"):lower():gsub("%.dds$",""):gsub("_[0-9]+$","")
 		local formattedCoords=string.format("%.3f,%.3f",x,y):gsub("0%.",".")
 		StartChatInput(fileName..'={'..formattedCoords..'},')
-end
+	end
 --	SLASH_COMMANDS["/mpdm"]=function() SavedGlobal.dm=not SavedGlobal.dm d("Map Pins developer mode is now "..(SavedGlobal.dm and "Enabled" or "Disabled")) end
 	SLASH_COMMANDS["/pinsize"]=function(n)
 		n=tonumber(n)
@@ -6363,6 +6309,11 @@ end
 			end
 		end
 	end
+	SLASH_COMMANDS["/mpallfish"]=function()
+		SavedVars.AllFish = not SavedVars.AllFish 
+		d(tostring(SavedVars.AllFish))
+		PinManager:RefreshCustomPins(_G["pinType_Fishing_Nodes"])
+	end
 --[[	Helper scripts POI
 	SLASH_COMMANDS["/makebase"]=function()
 		--PoiData=ZO_SavedVars:NewAccountWide("MP_PoiData",1,nil,{})
@@ -6379,11 +6330,33 @@ end
 			end
 		end
 	end
---]]
+--]]	
 --[[
-	SLASH_COMMANDS["/mptest"]=function()
-		d("mptest Start")
-		--PoiData=ZO_SavedVars:NewAccountWide("MP_PoiData",1,nil,{})
+	local function ShowSkyShardsOnMap()
+		local fileName=GetMapTileTexture():match("[^\\/]+$"):lower():gsub("%.dds$", ""):gsub("_[0-9]+$", "")
+		local mapData = SkyShards[fileName]
+		local ach={}	
+		if mapData then
+			for _,pinData in pairs(mapData) do
+				ach[pinData[3] ]=true
+				
+			end
+		end
+		local shards=0
+		local zoneId=GetZoneId(GetCurrentMapZoneIndex())
+		for achID in pairs(ach) do
+			for i=1,GetNumSkyshardsInAchievement(achID) do
+				shards=shards+1
+				local skyID = GetZoneSkyshardId(zoneId,shards)			
+				local pinX,pinY ,inMap= GetNormalizedPositionForSkyshardId(skyID)
+				PinManager:CreatePin(_G[CustomPins[33].name ],{[1]=33,name=achID..", "..i..", "..skyID..", "..shards},pinX,pinY)
+			end
+		end
+	end
+	--]]
+--[[
+	local function GetUnkownPOI()	
+	--PoiData=ZO_SavedVars:NewAccountWide("MP_PoiData",1,nil,{})
 		for i=1,10000 do
 			local function checkZone(zoneIndex)
 				local zoneId=GetZoneId(zoneIndex)
@@ -6410,6 +6383,21 @@ end
 			end
 			checkZone(i)
 		end
+	end
+	--]]
+--[[
+	SLASH_COMMANDS["/mptest"]=function()
+		d("mptest Start")
+	 -- Checks for unlinked achemevements
+		for mapName,mapData in pairs(Achievements) do
+			for achId,achData in pairs(mapData) do
+				if not CustomPins[achId] then
+					d("mapName: "..mapName..", achId: "..achId)
+				end
+			end
+		end
+		--ShowSkyShardsOnMap()
+		--GetUnkownPOI()	
 		d("mptest Done")
 	end
 --]]
