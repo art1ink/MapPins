@@ -800,24 +800,24 @@ hallsofregulation_2_base={{.728,.402,2016,1}},
 local BossesAchievements={[4272]=true,[4271]=true,[4265]=true,[4264]=true,[4262]=true,[4261]=true,[4260]=true,[4259]=true,[4258]=true,[4257]=true,[4003]=true,[4002]=true,[4001]=true,[4000]=true,[3959]=true,[3958]=true,[3957]=true,[3956]=true,[3955]=true,[3954]=true,[3660]=true,[3659]=true,[3658]=true,[3657]=true,[3625]=true,[3624]=true,[3623]=true,[3622]=true,[3621]=true,[3620]=true,[3490]=true,[3489]=true,[3284]=true,[3283]=true,[3282]=true,[3281]=true,[3280]=true,[3279]=true,[3278]=true,[3277]=true,[3276]=true,[3275]=true,[2996]=true,[2997]=true,[2971]=true,[2714]=true,[2715]=true,[2717]=true,[2718]=true,[2440]=true,[2442]=true,[2444]=true,[2445]=true,[744]=true,[734]=true,[741]=true,[742]=true,[733]=true,[732]=true,[377]=true,[738]=true,[739]=true,[740]=true,[1238]=true,[1239]=true,[1052]=true,[2095]=true,[2096]=true,[2181]=true,[2182]=true,[2007]=true,[300]=true,[470]=true,[1235]=true,[1236]=true,[1855]=true,[1846]=true,[1057]=true,[1058]=true,[1059]=true,[1061]=true,[1062]=true,[1063]=true,[1064]=true,[1425]=true,[1857]=true,[1691]=true,[1523]=true,[1856]=true,[1854]=true,[368]=true,[370]=true,[374]=true,[376]=true,[390]=true,[396]=true,}
 local SkyShards={
 u48_overland_base={--Seasons of the Worm Cult (Western and Eastern Solstice) by art1ink
-{.514,.429,4405,1,569},
-{.476,.711,4405,2,570},
-{.272,.454,4405,3,571},
-{.309,.595,4405,4,572},
-{.423,.361,4405,5,564},
-{.275,.5,4405,6,565},
-{.35,.695,4405,7,566},
-{.573,.616,4405,8,567},
-{.476,.56,4405,9,568},
-{.659,.366,4461,1,579},--10
-{.619,.505,4461,2,580},--11
-{.724,.686,4461,3,587},--12
-{.733,.572,4461,4,578},--13
-{.755,.359,4461,5,573},--14
-{.654,.42,4461,6,574},--15
-{.809,.504,4461,7,575},--16
-{.831,.638,4461,8,576},--17
-{.757,.685,4461,9,577}},--18
+{.423,.361,4405,1,564},
+{.275,.5,4405,2,565},
+{.35,.695,4405,3,566},
+{.573,.616,4405,4,567},
+{.476,.56,4405,5,568},
+{.514,.429,4405,6,569},
+{.476,.711,4405,7,570},
+{.272,.454,4405,8,571},
+{.309,.595,4405,9,572},
+{.755,.359,4461,1,573},--10
+{.654,.42,4461,2,574},--11
+{.809,.504,4461,3,575},--12
+{.831,.638,4461,4,576},--13
+{.757,.685,4461,5,577}},--14
+{.733,.572,4461,6,578},--15
+{.659,.366,4461,7,579},--16
+{.619,.505,4461,8,580},--17
+{.724,.686,4461,9,587},--18
 u48_base_calindvalegardenspd={{.367,.51,4461,6,574}},--15
 u46_base_lotwc={{.369,.792,4461,7,575}},--16
 u48_ssl_delve_base_1={{.205,.478,4461,8,576}},--17
@@ -6337,19 +6337,37 @@ local function OnLoad(eventCode,addonName)
 		local mapData = SkyShards[fileName]
 		local ach={}	
 		if mapData then
+			--extract known Achievement from the table
+			local numfound={}
+			local numAchFound=1
 			for _,pinData in pairs(mapData) do
-				ach[pinData[3] ]=true
-				
+				if not numfound[pinData[3] ] then 
+					numfound[pinData[3] ]=true
+					ach[numAchFound]=pinData[3]	
+					numAchFound=numAchFound+1
+				end				
 			end
 		end
 		local shards=0
 		local zoneId=GetZoneId(GetCurrentMapZoneIndex())
-		for achID in pairs(ach) do
+		--loop over the Achievements
+		for _,achID in pairs(ach) do
+			--for the amount of skyshards needed
 			for i=1,GetNumSkyshardsInAchievement(achID) do
+				--counter to get correct skyID
 				shards=shards+1
 				local skyID = GetZoneSkyshardId(zoneId,shards)			
 				local pinX,pinY ,inMap= GetNormalizedPositionForSkyshardId(skyID)
-				PinManager:CreatePin(_G[CustomPins[33].name ],{[1]=33,name=achID..", "..i..", "..skyID..", "..shards},pinX,pinY)
+				local foundCriterion=0
+				local hint =GetSkyshardHint(skyID)
+				--find the Criterion for skyID
+				for criterionIndex=1,GetNumSkyshardsInAchievement(achID) do
+					local achname = GetAchievementCriterion(achID,criterionIndex)
+					if hint == achname then
+					foundCriterion=criterionIndex 
+					end
+				end
+				PinManager:CreatePin(_G[CustomPins[33].name ],{[1]=33,name="["..foundCriterion.."] achId: "..achID..", skyId: "..skyID..", skyIndex"..shards.."\n ---HINT--- \n"..hint},pinX,pinY)
 			end
 		end
 	end
@@ -6396,7 +6414,7 @@ local function OnLoad(eventCode,addonName)
 				end
 			end
 		end
-		--ShowSkyShardsOnMap()
+		ShowSkyShardsOnMap()
 		--GetUnkownPOI()	
 		d("mptest Done")
 	end
