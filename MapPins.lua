@@ -362,6 +362,16 @@ hallsofregulation_2_base={{.728,.402,2016,1}},
 }
 local BossesAchievements={[4272]=true,[4271]=true,[4265]=true,[4264]=true,[4262]=true,[4261]=true,[4260]=true,[4259]=true,[4258]=true,[4257]=true,[4003]=true,[4002]=true,[4001]=true,[4000]=true,[3959]=true,[3958]=true,[3957]=true,[3956]=true,[3955]=true,[3954]=true,[3660]=true,[3659]=true,[3658]=true,[3657]=true,[3625]=true,[3624]=true,[3623]=true,[3622]=true,[3621]=true,[3620]=true,[3490]=true,[3489]=true,[3284]=true,[3283]=true,[3282]=true,[3281]=true,[3280]=true,[3279]=true,[3278]=true,[3277]=true,[3276]=true,[3275]=true,[2996]=true,[2997]=true,[2971]=true,[2714]=true,[2715]=true,[2717]=true,[2718]=true,[2440]=true,[2442]=true,[2444]=true,[2445]=true,[744]=true,[734]=true,[741]=true,[742]=true,[733]=true,[732]=true,[377]=true,[738]=true,[739]=true,[740]=true,[1238]=true,[1239]=true,[1052]=true,[2095]=true,[2096]=true,[2181]=true,[2182]=true,[2007]=true,[300]=true,[470]=true,[1235]=true,[1236]=true,[1855]=true,[1846]=true,[1057]=true,[1058]=true,[1059]=true,[1061]=true,[1062]=true,[1063]=true,[1064]=true,[1425]=true,[1857]=true,[1691]=true,[1523]=true,[1856]=true,[1854]=true,[368]=true,[370]=true,[374]=true,[376]=true,[390]=true,[396]=true,}
 local SkyShards={
+blackreach_base={
+{.767,.370,2687,16,469},
+{.084,.366,2687,18,471},
+{.494,.663,2687,12,465},},
+u28_blackreach_base={{.739,.332,2857,6,477}},
+u38_telvannipeninsula_base={
+{.719,.318,3672,12,539},
+{.786,.500,3672,13,540},
+{.242,.690,3672,17,544},},
+artaeum_base={{.398,.442,1845,18,423}},
 hallowedwastes_base={
 {.203,.732,556,12,238},
 {.779,.347,556,16,242},
@@ -376,8 +386,7 @@ reticulatedspine_base={
 {.864,.384,687,16,54},
 {.554,.916,687,13,51},
 {.313,.228,687,15,53}},
-kragenmoor_base={
-{.914,.058,397,14,20}},
+kragenmoor_base={{.914,.058,397,14,20}},
 daenia_base={
 {.998,.289,409,12,190},
 {.258,.611,409,16,194},
@@ -408,8 +417,7 @@ reapersmarch_base={
 {.239,.607,685,13,169},
 {.753,.128,685,14,170},
 {.633,.395,685,15,171}},
-shornhelm_base={
-{.036,.077,554,10,220}},
+shornhelm_base={{.036,.077,554,10,220}},
 summerset_base={
 {.496,.544,1845,16,421},
 {.268,.522,1845,17,422},
@@ -426,9 +434,7 @@ eastmarch_base={
 {.564,.432,688,13,67},
 {.511,.618,688,14,68},
 {.637,.653,688,15,69}},
-hewsbane_base={
-{.322,.783,1347,6,375},
-{.468,.423,1347,5,374}},
+hewsbane_base={{.322,.783,1347,6,375},{.468,.423,1347,5,374}},
 rivenspire_base={
 {.556,.456,554,16,226},
 {.357,.490,554,10,220},
@@ -454,8 +460,7 @@ shadowfen_base={
 {.448,.621,687,13,51},
 {.668,.769,687,14,52},
 {.290,.169,687,15,53}},
-southruins_base={
-{.024,.032,695,15,107}},
+southruins_base={{.024,.032,695,15,107}},
 westwealdoverland_base={
 {.765,.208,3949,16,561},
 {.718,.729,3949,17,562},
@@ -493,10 +498,8 @@ coldharbour_base={
 {.454,.510,686,13,272},
 {.670,.575,686,14,273},
 {.660,.376,686,15,274}},
-abandonedmine_base={
-{.858,.059,695,15,107}},
-u30_leyawiincity_base={
-{.193,.004,2982,14,491}},
+abandonedmine_base={{.858,.059,695,15,107}},
+u30_leyawiincity_base={{.193,.004,2982,14,491}},
 deshaan_base={
 {.732,.390,547,16,38},
 {.203,.450,547,10,32},
@@ -505,9 +508,7 @@ deshaan_base={
 {.307,.570,547,13,35},
 {.581,.459,547,14,36},
 {.627,.613,547,15,37}},
-clockwork_base={
-{.268,.576,1844,6,405},
-{.841,.652,1844,5,404}},
+clockwork_base={{.268,.576,1844,6,405},{.841,.652,1844,5,404}},
 u48_overland_base={
 {.514,.429,4405,1,569},
 {.476,.711,4405,2,570},
@@ -550,8 +551,7 @@ zabamat_base={
 {.440,.503,397,13,19},
 {.343,.660,397,14,20},
 {.229,.635,397,15,21}},
-windhelm_base={
-{.334,.454,688,16,70}},
+windhelm_base={{.334,.454,688,16,70}},
 malabaltor_base={
 {.385,.406,684,16,156},
 {.788,.298,684,10,150},
@@ -569,11 +569,8 @@ courtofwilderking_base={
 southernelsweyr_base={
 {.517,.290,2562,6,453},
 {.165,.623,2562,5,452}},
-vulkwasten_base={
-{.032,.969,684,12,152}},
-goldcoast_base={
-{.579,.453,1342,6,381},
-{.392,.452,1342,5,380}},
+vulkwasten_base={{.032,.969,684,12,152}},
+goldcoast_base={{.579,.453,1342,6,381},{.392,.452,1342,5,380}},
 drownedcoast_base={
 {.577,.311,683,16,140},
 {.867,.987,683,11,135},
@@ -610,8 +607,7 @@ brokencoast_base={
 {.726,.278,684,16,156},
 {.716,.687,684,15,155},
 {.657,.290,684,11,151}},
-kingscrest_base={
-{.010,.508,692,11,286}},
+kingscrest_base={{.010,.508,692,11,286}},
 grahtwood_base={
 {.658,.597,682,16,124},
 {.562,.665,682,10,118},
@@ -634,8 +630,7 @@ icewindpeaks_base={
 {.243,.268,688,13,67},
 {.540,.618,688,10,64},
 {.378,.673,688,15,69}},
-davonswatch_base={
-{.876,.583,397,16,22}},
+davonswatch_base={{.876,.583,397,16,22}},
 elsweyr_base={
 {.153,.609,2461,16,445},
 {.627,.586,2461,17,446},
@@ -651,9 +646,7 @@ u38_apocrypha_base={
 {.404,.499,3672,11,538},
 {.579,.734,3672,14,541},
 {.904,.666,3672,15,542}},
-u36_galenisland_base={
-{.557,.447,3499,6,527},
-{.215,.471,3499,5,526}},
+u36_galenisland_base={{.557,.447,3499,6,527},{.215,.471,3499,5,526}},
 craglorn_base={
 {.748,.725,727,1,322},
 {.685,.600,727,2,323},
@@ -673,20 +666,15 @@ craglorn_base={
 {.662,.332,912,4,337},
 {.087,.306,912,5,338},
 {.548,.251,912,6,339}},
-venomousfens_base={
-{.387,.774,687,12,50},
-{.712,.483,687,13,51}},
-u32deadlandszone_base={
-{.893,.269,3140,6,501},
-{.145,.536,3140,5,500}},
+venomousfens_base={{.387,.774,687,12,50},{.712,.483,687,13,51}},
+u32deadlandszone_base={{.893,.269,3140,6,501},{.145,.536,3140,5,500}},
 raggedhills_base={
 {.094,.495,689,16,86},
 {.617,.731,689,10,80},
 {.797,.568,689,12,82},
 {.215,.283,689,14,84},
 {.508,.188,689,15,85}},
-hallinsstand_base={
-{.418,.073,557,13,255}},
+hallinsstand_base={{.418,.073,557,13,255}},
 stormhaven_base={
 {.317,.496,515,16,210},
 {.786,.433,515,10,204},
@@ -714,14 +702,9 @@ ava_whole={
 {.503,.215,693,14,304},
 {.361,.221,693,15,305},
 {.316,.563,694,12,317}},
-reach_base={
-{.730,.700,2857,6,477},
-{.336,.664,2857,5,476}},
-baandaritradingpost_base={
-{.196,.259,684,10,150}},
-kingsguard_base={
-{.281,.431,409,14,192},
-{.587,.341,409,15,193}},
+reach_base={{.730,.700,2857,6,477},{.336,.664,2857,5,476}},
+baandaritradingpost_base={{.196,.259,684,10,150}},
+kingsguard_base={{.281,.431,409,14,192},{.587,.341,409,15,193}},
 vvardenfell_base={
 {.798,.690,1843,16,397},
 {.672,.420,1843,17,398},
@@ -739,13 +722,9 @@ glenumbra_base={
 {.343,.333,409,13,191},
 {.608,.185,409,14,192},
 {.766,.138,409,15,193}},
-crosswych_base={
-{.254,.461,409,15,193}},
-vulkhelguard_base={
-{.301,.191,695,11,103}},
-murkmire_base={
-{.467,.371,2291,6,429},
-{.203,.515,2291,5,428}},
+crosswych_base={{.254,.461,409,15,193}},
+vulkhelguard_base={{.301,.191,695,11,103}},
+murkmire_base={{.467,.371,2291,6,429},{.203,.515,2291,5,428}},
 leafwater_base={
 {.534,.752,687,14,52},
 {.184,.518,687,13,51},
@@ -779,6 +758,7 @@ alikr_base={
 }
 local SkyShardsAchievements={[4461]=true,[4405]=true,[3949]=true,[3672]=true,[3499]=true,[3270]=true,[3140]=true,[2982]=true,[2857]=true,[2687]=true,[2562]=true,[2521]=true,[2461]=true,[2291]=true,[556]=true,[695]=true,[405]=true,[557]=true,[408]=true,[398]=true,[686]=true,[727]=true,[912]=true,[694]=true,[693]=true,[692]=true,[547]=true,[688]=true,[409]=true,[682]=true,[683]=true,[431]=true,[684]=true,[748]=true,[685]=true,[554]=true,[687]=true,[397]=true,[515]=true,[407]=true,[689]=true,[1160]=true,[1320]=true,[1347]=true,[1342]=true,[1843]=true,[1844]=true,[1845]=true}
 local SkyshardZoneAchievements={[3]={409},[19]={515},[20]={554},[41]={397},[57]={547},[58]={684},[92]={557},[101]={688},[103]={689},[104]={556},[108]={683},[117]={687},[181]={692,693,694,748},[280]={398},[281]={405},[347]={686},[381]={695},[382]={685},[383]={682},[534]={407},[535]={408},[537]={431},[584]={1160},[684]={1320},[726]={2291},[809]={2521},[816]={1347},[823]={1342},[849]={1843},[888]={727,912},[980]={1844},[1011]={1845},[1086]={2461},[1133]={2562},[1160]={2687},[1207]={2857},[1261]={2982},[1286]={3140},[1318]={3270},[1383]={3499},[1413]={3672},[1443]={3949},[1502]={4405,4461},}
+local dumbSkyshardFix={[1161]=1160,[1208]=1207,[1414]=1413,[1027]=1011,}
 local Lorebooks={
 u48_overland_base={--Solstice. Provided by art1ink
 {.759,.302,16,9},--Sithis
@@ -3994,7 +3974,7 @@ local CustomPins={	--Types
 	[1]={name="pinType_Delve_bosses",done=false,id={},pin={},maxDistance=0.05,level=30,texture="/esoui/art/icons/poi/poi_groupboss_incomplete.dds",k=1.25},--tint=ZO_ColorDef:New(1,1,1,1),
 	[2]={name="pinType_Delve_bosses_done",done=true,id={},pin={},maxDistance=0.05,level=30,texture="/esoui/art/icons/poi/poi_groupboss_complete.dds",k=1.25},
 	[3]={name="pinType_Skyshards",done=false,id={},pin={},maxDistance=0.05,level=100,texture="/"..AddonName.."/textures/Skyshard_1.dds",k=1.40},
---	[4]={name="pinType_Skyshards_done",done=true,id={},pin={},maxDistance=0.05,level=30,texture="/esoui/art/tutorial/gamepad/achievement_categoryicon_skyshards.dds",k=1.38},
+	[4]={name="pinType_Skyshards_done",done=true,id={},pin={},maxDistance=0.05,level=100,texture="/esoui/art/mappins/skyshard_complete.dds",k=1.4},
 	[5]={name="pinType_Lore_books",done=false,id={},pin={},maxDistance=0.05,level=100,texture="/"..AddonName.."/textures/Lorebook_1.dds",k=1,tint=ZO_ColorDef:New(.6,.6,1,.8)},
 --	[5]={name="pinType_Lore_books_done",done=true,id={},pin={},maxDistance=0.05,level=30,texture="/"..AddonName.."/textures/Lorebook_2.dds",k=1,tint=ZO_ColorDef:New(.6,.6,1,.8)},
 	[6]={name="pinType_Treasure_Maps",done=false,id={},pin={},maxDistance=0.05,level=101,texture=function(self) return self.m_PinTag.texture end,def_texture="/"..AddonName.."/textures/Treasure_1.dds",k=1.4},
@@ -4485,12 +4465,15 @@ local function MapPinAddCallback(i)
 			end
 		elseif i==3 or i==4 then
 			local zoneId=GetZoneId(GetCurrentMapZoneIndex())
+			if dumbSkyshardFix[zoneId] then zoneId=dumbSkyshardFix[zoneId] end
 			-- Table with skyshard achemevements related to zone
 			local SkyshardAchievements = SkyshardZoneAchievements[zoneId]
 			if not SkyshardAchievements then
 				--Incase we are in a delve this grabs the upper zone
 				zoneId=GetParentZoneId(zoneId)
-				SkyshardAchievements=SkyshardZoneAchievements[zoneId] end
+				if dumbSkyshardFix[zoneId] then zoneId=dumbSkyshardFix[zoneId] end
+				SkyshardAchievements=SkyshardZoneAchievements[zoneId] 
+			end
 			if SkyshardAchievements then
 				local skyshardIndex=0
 				for _,AchievementId in pairs(SkyshardAchievements) do
@@ -5291,7 +5274,7 @@ local function OnLoad(eventCode,addonName)
 	PinManager=ZO_WorldMap_GetPinManager()
 --	CustomPins_init()
 	RegisterEvents()
-	MakeMapFiltersScroll()
+	--MakeMapFiltersScroll()
 
 	--APIVersion: 101032
 	SavedVars[4]=false
@@ -5455,7 +5438,7 @@ local function OnLoad(eventCode,addonName)
 		end
 	end
 	--]]
---[[
+---[[
 	function getAllSkyshards()
 		SavedGlobal.LocatedSkyshards={}
 		SavedGlobal.POISkyshard={}
@@ -5469,10 +5452,10 @@ local function OnLoad(eventCode,addonName)
 		-- 	if not SavedGlobal.SkyshardZoneAchievements[zoneId] then SavedGlobal.SkyshardZoneAchievements[zoneId]={} end
 		-- 	SavedGlobal.SkyshardZoneAchievements[zoneId][#SavedGlobal.SkyshardZoneAchievements[zoneId]+1] =AchievementId
 		-- end
-		local SkyshardZoneAchievements={[3]={409},[1413]={3672},[1286]={3140},[584]={1160},[849]={1843},[19]={515},[20]={554},[534]={407},[535]={408},[280]={398},[281]={405},[347]={686},[92]={557},[1502]={4405,4461},[1443]={3949},[1383]={3499},[101]={688},[1318]={3270},[103]={689},[104]={556},[41]={397},[1086]={2461},[1160]={2687},[684]={1320},[1261]={2982},[809]={2521},[1133]={2562},[816]={1347},[726]={2291},[980]={1844},[1011]={1845},[117]={687},[181]={692,693,694,748},[1207]={2857},[823]={1342},[888]={727,912},[57]={547},[58]={684},[537]={431},[108]={683},[381]={695},[382]={685},[383]={682}}
+		-- SkyshardZoneAchievements=SavedGlobal.SkyshardZoneAchievements
+		
 		--loop over the maps
 		local currentLoadingCoroutine = nil
-
 		-- Helper to stop any existing loading process
 		local function AbortPinLoading()
 			EVENT_MANAGER:UnregisterForUpdate(AddonName.."_SkyshardLoader")
@@ -5495,6 +5478,7 @@ local function OnLoad(eventCode,addonName)
 					--get the zone
 					local zoneIndex=GetCurrentMapZoneIndex()
 					local zoneId=GetZoneId(zoneIndex)
+					if dumbSkyshardFix[zoneId] then zoneId=dumbSkyshardFix[zoneId] end
 					-- Get Skyshards in Delves
 					for poiIndex=1,GetNumPOIs(zoneIndex) do
 						local skyID = GetPOISkyshardId(zoneIndex, poiIndex)
