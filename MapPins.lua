@@ -5176,7 +5176,7 @@ local PinTooltipCreator={
 	end
 }
 local function MakeMapFiltersScroll()
---local WORLD_MAP_FILTERS = ZO_InitializingObject:Subclass()  -- Add this line into the MakeMapFiltersScroll function.
+if WORLD_MAP_FILTERS then
  	if WORLD_MAP_FILTERS.pvePanel then
 		if WORLD_MAP_FILTERS.pvePanel.checkBoxPool then
 			WORLD_MAP_FILTERS.pvePanel.checkBoxPool.parent=ZO_WorldMapFiltersPvEContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvEContainer",ZO_WorldMapFiltersPvE,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
@@ -5260,7 +5260,7 @@ local function MakeMapFiltersScroll()
 		end
 		if ZO_WorldMapFiltersImperialPvPContainer then ZO_WorldMapFiltersImperialPvPContainer:SetAnchorFill() end
 	end
-
+	end
 end
 
 local function OnLoad(eventCode,addonName)
@@ -5274,7 +5274,7 @@ local function OnLoad(eventCode,addonName)
 	PinManager=ZO_WorldMap_GetPinManager()
 --	CustomPins_init()
 	RegisterEvents()
-	--MakeMapFiltersScroll()
+	MakeMapFiltersScroll()
 
 	--APIVersion: 101032
 	SavedVars[4]=false
