@@ -758,7 +758,7 @@ alikr_base={
 }
 local SkyShardsAchievements={[4461]=true,[4405]=true,[3949]=true,[3672]=true,[3499]=true,[3270]=true,[3140]=true,[2982]=true,[2857]=true,[2687]=true,[2562]=true,[2521]=true,[2461]=true,[2291]=true,[556]=true,[695]=true,[405]=true,[557]=true,[408]=true,[398]=true,[686]=true,[727]=true,[912]=true,[694]=true,[693]=true,[692]=true,[547]=true,[688]=true,[409]=true,[682]=true,[683]=true,[431]=true,[684]=true,[748]=true,[685]=true,[554]=true,[687]=true,[397]=true,[515]=true,[407]=true,[689]=true,[1160]=true,[1320]=true,[1347]=true,[1342]=true,[1843]=true,[1844]=true,[1845]=true}
 local SkyshardZoneAchievements={[3]={409},[19]={515},[20]={554},[41]={397},[57]={547},[58]={684},[92]={557},[101]={688},[103]={689},[104]={556},[108]={683},[117]={687},[181]={692,693,694,748},[280]={398},[281]={405},[347]={686},[381]={695},[382]={685},[383]={682},[534]={407},[535]={408},[537]={431},[584]={1160},[684]={1320},[726]={2291},[809]={2521},[816]={1347},[823]={1342},[849]={1843},[888]={727,912},[980]={1844},[1011]={1845},[1086]={2461},[1133]={2562},[1160]={2687},[1207]={2857},[1261]={2982},[1286]={3140},[1318]={3270},[1383]={3499},[1413]={3672},[1443]={3949},[1502]={4405,4461},}
-local dumbSkyshardFix={[1161]=1160,[1208]=1207,[1414]=1413,[1027]=1011,}
+local dumbSkyshardFix={[1161]=1160,[1208]=1207,[1414]=1413,[1027]=1011,[1282]=1286,}
 local Lorebooks={
 u48_overland_base={--Solstice. Provided by art1ink
 {.759,.302,16,9},--Sithis
@@ -4530,7 +4530,6 @@ end
 local function CompassPinAddCallback(i)
 	if UpdatingCompassPin[i] or GetMapType()>MAPTYPE_ZONE or not PinManager:IsCustomPinEnabled(PinId[i]) then return end
 	local MapContentType=GetMapContentType()
-	if (i==1 or i==2) and MapContentType~=MAP_CONTENT_DUNGEON then return end
 	if i==5 and MapContentType==MAP_CONTENT_DUNGEON and IsUnitUsingVeteranDifficulty("player") then return end
 	UpdatingCompassPin[i]=true
 	if not IsPlayerActivated() then
@@ -4544,14 +4543,45 @@ local function CompassPinAddCallback(i)
 	end
 --	pl("Compass pin "..i.." updating")
 	local subzone = GetMapTileTexture():match("[^\\/]+$"):lower():gsub("%.dds$", ""):gsub("_[0-9]+$", "")
-	if i==1 or i==2 then
-		local mapData=Bosses[subzone]
+	if i==5 then
+		local mapData=Lorebooks[subzone]
 		if mapData then
-			for _,pinData in pairs(mapData) do
-				local AchName,Completed,Required=GetAchievementCriterion(pinData[3],pinData[4])
-				if (Completed==Required)==CustomPins[i].done and AchName~="" then
-					COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,AchName,pinData[1],pinData[2])
+			for _, pinData in pairs(mapData) do
+				local AchName, _, done=GetLoreBookInfo(1, pinData[3], pinData[4])
+				if done==CustomPins[i].done and AchName~="" then
+					COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,AchName..tostring(pinData[1]),pinData[1],pinData[2])
 				end
+			end
+		end
+	elseif i==6 then
+		local mapData=TreasureMaps[subzone]
+		if mapData then
+			for _, itemData in pairs(SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_BACKPACK)) do
+				if itemData and itemData.itemType==ITEMTYPE_TROPHY then
+					for _, pinData in pairs(mapData) do
+						if GetItemId(BAG_BACKPACK,itemData.slotIndex)==pinData[3] then
+							COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,itemData.name,pinData[1],pinData[2])
+						end
+					end
+				end
+			end
+		end
+	elseif i==7 then
+		local mapData=ChestData[subzone]
+		if mapData then
+			local FindersKeepers=IsAbilityUnlocked(74580)
+			for chType, chData in pairs(mapData) do
+				for chest, pinData in pairs(chData) do
+					if chType==1 or (chType==2 and FindersKeepers) then
+						COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,"Chest_"..subzone.."_"..chType.."_"..chest,pinData[1],pinData[2])
+					end
+				end
+			end
+		end
+		mapData=CustomChestData[subzone]
+		if mapData then
+			for chest, pinData in pairs(mapData) do
+				COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,"Chest_"..subzone.."_3_"..chest,pinData[1],pinData[2])
 			end
 		end
 	elseif i==15 then
@@ -4603,53 +4633,13 @@ local function CompassPinAddCallback(i)
 				end
 			end
 		end
-	elseif i==5 then
-		local mapData=Lorebooks[subzone]
-		if mapData then
-			for _, pinData in pairs(mapData) do
-				local AchName, _, done=GetLoreBookInfo(1, pinData[3], pinData[4])
-				if done==CustomPins[i].done and AchName~="" then
-					COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,AchName..tostring(pinData[1]),pinData[1],pinData[2])
-				end
-			end
-		end
-	elseif i==6 then
-		local mapData=TreasureMaps[subzone]
-		if mapData then
-			for _, itemData in pairs(SHARED_INVENTORY:GenerateFullSlotData(nil, BAG_BACKPACK)) do
-				if itemData and itemData.itemType==ITEMTYPE_TROPHY then
-					for _, pinData in pairs(mapData) do
-						if GetItemId(BAG_BACKPACK,itemData.slotIndex)==pinData[3] then
-							COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,itemData.name,pinData[1],pinData[2])
-						end
-					end
-				end
-			end
-		end
-	elseif i==7 then
-		local mapData=ChestData[subzone]
-		if mapData then
-			local FindersKeepers=IsAbilityUnlocked(74580)
-			for chType, chData in pairs(mapData) do
-				for chest, pinData in pairs(chData) do
-					if chType==1 or (chType==2 and FindersKeepers) then
-						COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,"Chest_"..subzone.."_"..chType.."_"..chest,pinData[1],pinData[2])
-					end
-				end
-			end
-		end
-		mapData=CustomChestData[subzone]
-		if mapData then
-			for chest, pinData in pairs(mapData) do
-				COMPASS_PINS.pinManager:CreatePin(CustomPins[i].name,"Chest_"..subzone.."_3_"..chest,pinData[1],pinData[2])
-			end
-		end
+
 	end
 	UpdatingCompassPin[i]=false
 end
 
 local function AddCompassCustomPin(id,i)
-	if COMPASS_PINS and (i==3 or i==5 or i==6 or i==7 or i==15 or i==16 or i>FILTER_COUNT) then
+	if COMPASS_PINS and (i==5 or i==6 or i==7 or i==15 or i>FILTER_COUNT) then
 		local pin=CustomPins[i].filter or i
 		if SavedVars[pin] then
 --			pl("["..id.."] Compass pin "..i.." enabled")
@@ -5176,90 +5166,90 @@ local PinTooltipCreator={
 	end
 }
 local function MakeMapFiltersScroll()
-if WORLD_MAP_FILTERS then
- 	if WORLD_MAP_FILTERS.pvePanel then
-		if WORLD_MAP_FILTERS.pvePanel.checkBoxPool then
-			WORLD_MAP_FILTERS.pvePanel.checkBoxPool.parent=ZO_WorldMapFiltersPvEContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvEContainer",ZO_WorldMapFiltersPvE,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
-			for i,control in pairs(WORLD_MAP_FILTERS.pvePanel.checkBoxPool.m_Active) do
-				control:SetParent(WORLD_MAP_FILTERS.pvePanel.checkBoxPool.parent)
-			end
-			if ZO_WorldMapFiltersPvECheckBox1 then
-				local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersPvECheckBox1:GetAnchor(0)
-				if control==WORLD_MAP_FILTERS.pvePanel.control then
-					ZO_WorldMapFiltersPvECheckBox1:SetAnchor(point,ZO_WorldMapFiltersPvEContainerScrollChild,relPoint,x,y)
+	if WORLD_MAP_FILTERS then
+		if WORLD_MAP_FILTERS.pvePanel then
+			if WORLD_MAP_FILTERS.pvePanel.checkBoxPool then
+				WORLD_MAP_FILTERS.pvePanel.checkBoxPool.parent=ZO_WorldMapFiltersPvEContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvEContainer",ZO_WorldMapFiltersPvE,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
+				for i,control in pairs(WORLD_MAP_FILTERS.pvePanel.checkBoxPool.m_Active) do
+					control:SetParent(WORLD_MAP_FILTERS.pvePanel.checkBoxPool.parent)
+				end
+				if ZO_WorldMapFiltersPvECheckBox1 then
+					local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersPvECheckBox1:GetAnchor(0)
+					if control==WORLD_MAP_FILTERS.pvePanel.control then
+						ZO_WorldMapFiltersPvECheckBox1:SetAnchor(point,ZO_WorldMapFiltersPvEContainerScrollChild,relPoint,x,y)
+					end
 				end
 			end
-		end
-		if WORLD_MAP_FILTERS.pvePanel.comboBoxPool then
-			WORLD_MAP_FILTERS.pvePanel.comboBoxPool.parent=ZO_WorldMapFiltersPvEContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvEContainer",ZO_WorldMapFiltersPvE,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
-			for i,control in pairs(WORLD_MAP_FILTERS.pvePanel.comboBoxPool.m_Active) do
-				control:SetParent(WORLD_MAP_FILTERS.pvePanel.comboBoxPool.parent)
-			end
-			if ZO_WorldMapFiltersPvEComboBox1 then
-				local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersPvEComboBox1:GetAnchor(0)
-				if control==WORLD_MAP_FILTERS.pvePanel.control then
-					ZO_WorldMapFiltersPvEComboBox1:SetAnchor(point,ZO_WorldMapFiltersPvEContainerScrollChild,relPoint,x,y)
+			if WORLD_MAP_FILTERS.pvePanel.comboBoxPool then
+				WORLD_MAP_FILTERS.pvePanel.comboBoxPool.parent=ZO_WorldMapFiltersPvEContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvEContainer",ZO_WorldMapFiltersPvE,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
+				for i,control in pairs(WORLD_MAP_FILTERS.pvePanel.comboBoxPool.m_Active) do
+					control:SetParent(WORLD_MAP_FILTERS.pvePanel.comboBoxPool.parent)
+				end
+				if ZO_WorldMapFiltersPvEComboBox1 then
+					local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersPvEComboBox1:GetAnchor(0)
+					if control==WORLD_MAP_FILTERS.pvePanel.control then
+						ZO_WorldMapFiltersPvEComboBox1:SetAnchor(point,ZO_WorldMapFiltersPvEContainerScrollChild,relPoint,x,y)
+					end
 				end
 			end
+			if ZO_WorldMapFiltersPvEContainer then ZO_WorldMapFiltersPvEContainer:SetAnchorFill() end
 		end
-		if ZO_WorldMapFiltersPvEContainer then ZO_WorldMapFiltersPvEContainer:SetAnchorFill() end
-	end
 
-	if WORLD_MAP_FILTERS.pvpPanel then
-		if WORLD_MAP_FILTERS.pvpPanel.checkBoxPool then
-			WORLD_MAP_FILTERS.pvpPanel.checkBoxPool.parent=ZO_WorldMapFiltersPvPContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvPContainer",ZO_WorldMapFiltersPvP,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
-			for i,control in pairs(WORLD_MAP_FILTERS.pvpPanel.checkBoxPool.m_Active) do
-				control:SetParent(WORLD_MAP_FILTERS.pvpPanel.checkBoxPool.parent)
-			end
-			if ZO_WorldMapFiltersPvPCheckBox1 then
-				local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersPvPCheckBox1:GetAnchor(0)
-				if control==WORLD_MAP_FILTERS.pvpPanel.control then
-					ZO_WorldMapFiltersPvPCheckBox1:SetAnchor(point,ZO_WorldMapFiltersPvPContainerScrollChild,relPoint,x,y)
+		if WORLD_MAP_FILTERS.pvpPanel then
+			if WORLD_MAP_FILTERS.pvpPanel.checkBoxPool then
+				WORLD_MAP_FILTERS.pvpPanel.checkBoxPool.parent=ZO_WorldMapFiltersPvPContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvPContainer",ZO_WorldMapFiltersPvP,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
+				for i,control in pairs(WORLD_MAP_FILTERS.pvpPanel.checkBoxPool.m_Active) do
+					control:SetParent(WORLD_MAP_FILTERS.pvpPanel.checkBoxPool.parent)
+				end
+				if ZO_WorldMapFiltersPvPCheckBox1 then
+					local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersPvPCheckBox1:GetAnchor(0)
+					if control==WORLD_MAP_FILTERS.pvpPanel.control then
+						ZO_WorldMapFiltersPvPCheckBox1:SetAnchor(point,ZO_WorldMapFiltersPvPContainerScrollChild,relPoint,x,y)
+					end
 				end
 			end
-		end
-		if WORLD_MAP_FILTERS.pvpPanel.comboBoxPool then
-			WORLD_MAP_FILTERS.pvpPanel.comboBoxPool.parent=ZO_WorldMapFiltersPvPContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvPContainer",ZO_WorldMapFiltersPvP,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
-			for i,control in pairs(WORLD_MAP_FILTERS.pvpPanel.comboBoxPool.m_Active) do
-				control:SetParent(WORLD_MAP_FILTERS.pvpPanel.comboBoxPool.parent)
-			end
-			if ZO_WorldMapFiltersPvPComboBox1 then
-				local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersPvPComboBox1:GetAnchor(0)
-				if control==WORLD_MAP_FILTERS.pvpPanel.control then
-					ZO_WorldMapFiltersPvPComboBox1:SetAnchor(point,ZO_WorldMapFiltersPvPContainerScrollChild,relPoint,x,y)
+			if WORLD_MAP_FILTERS.pvpPanel.comboBoxPool then
+				WORLD_MAP_FILTERS.pvpPanel.comboBoxPool.parent=ZO_WorldMapFiltersPvPContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersPvPContainer",ZO_WorldMapFiltersPvP,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
+				for i,control in pairs(WORLD_MAP_FILTERS.pvpPanel.comboBoxPool.m_Active) do
+					control:SetParent(WORLD_MAP_FILTERS.pvpPanel.comboBoxPool.parent)
+				end
+				if ZO_WorldMapFiltersPvPComboBox1 then
+					local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersPvPComboBox1:GetAnchor(0)
+					if control==WORLD_MAP_FILTERS.pvpPanel.control then
+						ZO_WorldMapFiltersPvPComboBox1:SetAnchor(point,ZO_WorldMapFiltersPvPContainerScrollChild,relPoint,x,y)
+					end
 				end
 			end
+			if ZO_WorldMapFiltersPvPContainer then ZO_WorldMapFiltersPvPContainer:SetAnchorFill() end
 		end
-		if ZO_WorldMapFiltersPvPContainer then ZO_WorldMapFiltersPvPContainer:SetAnchorFill() end
-	end
 
-	if WORLD_MAP_FILTERS.imperialPvPPanel then
-		if WORLD_MAP_FILTERS.imperialPvPPanel.checkBoxPool then
-			WORLD_MAP_FILTERS.imperialPvPPanel.checkBoxPool.parent=ZO_WorldMapFiltersImperialPvPContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersImperialPvPContainer",ZO_WorldMapFiltersImperialPvP,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
-			for i,control in pairs(WORLD_MAP_FILTERS.imperialPvPPanel.checkBoxPool.m_Active) do
-				control:SetParent(WORLD_MAP_FILTERS.imperialPvPPanel.checkBoxPool.parent)
-			end
-			if ZO_WorldMapFiltersImperialPvPCheckBox1 then
-				local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersImperialPvPCheckBox1:GetAnchor(0)
-				if control==WORLD_MAP_FILTERS.imperialPvPPanel.control then
-					ZO_WorldMapFiltersImperialPvPCheckBox1:SetAnchor(point,ZO_WorldMapFiltersImperialPvPContainerScrollChild,relPoint,x,y)
+		if WORLD_MAP_FILTERS.imperialPvPPanel then
+			if WORLD_MAP_FILTERS.imperialPvPPanel.checkBoxPool then
+				WORLD_MAP_FILTERS.imperialPvPPanel.checkBoxPool.parent=ZO_WorldMapFiltersImperialPvPContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersImperialPvPContainer",ZO_WorldMapFiltersImperialPvP,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
+				for i,control in pairs(WORLD_MAP_FILTERS.imperialPvPPanel.checkBoxPool.m_Active) do
+					control:SetParent(WORLD_MAP_FILTERS.imperialPvPPanel.checkBoxPool.parent)
+				end
+				if ZO_WorldMapFiltersImperialPvPCheckBox1 then
+					local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersImperialPvPCheckBox1:GetAnchor(0)
+					if control==WORLD_MAP_FILTERS.imperialPvPPanel.control then
+						ZO_WorldMapFiltersImperialPvPCheckBox1:SetAnchor(point,ZO_WorldMapFiltersImperialPvPContainerScrollChild,relPoint,x,y)
+					end
 				end
 			end
-		end
-		if WORLD_MAP_FILTERS.imperialPvPPanel.comboBoxPool then
-			WORLD_MAP_FILTERS.imperialPvPPanel.comboBoxPool.parent=ZO_WorldMapFiltersImperialPvPContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersImperialPvPContainer",ZO_WorldMapFiltersImperialPvP,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
-			for i,control in pairs(WORLD_MAP_FILTERS.imperialPvPPanel.comboBoxPool.m_Active) do
-				control:SetParent(WORLD_MAP_FILTERS.imperialPvPPanel.comboBoxPool.parent)
-			end
-			if ZO_WorldMapFiltersImperialPvPComboBox1 then
-				local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersImperialPvPComboBox1:GetAnchor(0)
-				if control==WORLD_MAP_FILTERS.imperialPvPPanel.control then
-					ZO_WorldMapFiltersImperialPvPComboBox1:SetAnchor(point,ZO_WorldMapFiltersImperialPvPContainerScrollChild,relPoint,x,y)
+			if WORLD_MAP_FILTERS.imperialPvPPanel.comboBoxPool then
+				WORLD_MAP_FILTERS.imperialPvPPanel.comboBoxPool.parent=ZO_WorldMapFiltersImperialPvPContainerScrollChild or WINDOW_MANAGER:CreateControlFromVirtual("ZO_WorldMapFiltersImperialPvPContainer",ZO_WorldMapFiltersImperialPvP,"ZO_ScrollContainer"):GetNamedChild("ScrollChild")
+				for i,control in pairs(WORLD_MAP_FILTERS.imperialPvPPanel.comboBoxPool.m_Active) do
+					control:SetParent(WORLD_MAP_FILTERS.imperialPvPPanel.comboBoxPool.parent)
+				end
+				if ZO_WorldMapFiltersImperialPvPComboBox1 then
+					local valid,point,control,relPoint,x,y=ZO_WorldMapFiltersImperialPvPComboBox1:GetAnchor(0)
+					if control==WORLD_MAP_FILTERS.imperialPvPPanel.control then
+						ZO_WorldMapFiltersImperialPvPComboBox1:SetAnchor(point,ZO_WorldMapFiltersImperialPvPContainerScrollChild,relPoint,x,y)
+					end
 				end
 			end
+			if ZO_WorldMapFiltersImperialPvPContainer then ZO_WorldMapFiltersImperialPvPContainer:SetAnchorFill() end
 		end
-		if ZO_WorldMapFiltersImperialPvPContainer then ZO_WorldMapFiltersImperialPvPContainer:SetAnchorFill() end
-	end
 	end
 end
 
@@ -5438,7 +5428,7 @@ local function OnLoad(eventCode,addonName)
 		end
 	end
 	--]]
----[[
+	--[[
 	function getAllSkyshards()
 		SavedGlobal.LocatedSkyshards={}
 		SavedGlobal.POISkyshard={}
