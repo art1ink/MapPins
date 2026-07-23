@@ -4734,8 +4734,9 @@ local function OnAchievementUpdate(achievementId,link)
 			if COMPASS_PINS then COMPASS_PINS:RefreshPins(name) end
 		end)
 	end
-	if BossesAchievements[achievementId] and SavedVars[1] then -- Delve bosses
-		RefreshPins(_G[CustomPins[1].name])
+	if BossesAchievements[achievementId] then -- Delve bosses
+		if SavedVars[1] then RefreshPins(_G[CustomPins[1].name]) end
+		if SavedVars[2] then RefreshPins(_G[CustomPins[2].name]) end
 	elseif FishingAchievements[achievementId] and SavedVars[17] then -- Fishing
 		RefreshPins(_G[CustomPins[17].name])
 	elseif CustomPins[achievementId] and CustomPins[achievementId].ach then -- Achievements
