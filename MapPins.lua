@@ -12,6 +12,7 @@ local lang=GetCVar("language.2") if not Localization[lang] then lang="en" end
 local function Loc(string)
 	return Localization[lang][string] or Localization[lang]["en"] or string
 end
+
 --Data base
 local Bosses={
 u48_base_calindvalegardenspd={
@@ -92,7 +93,7 @@ u34_whalefall_cay_base={{.401,.303,3279}},--Jailer Mannick
 u34_coralcliffsext_base={{.557,.718,3280}},--Madena Bracques
 u34_ghosthaven_base={--Ghost Haven Bay Conqueror
 {.478,.618,3282,3},--Captain Tuvacca
-{.406,.466,3282.4},--Captain Marlay
+{.406,.466,3282,4},--Captain Marlay
 {.484,.244,3282,5}},--Captain Fauvette
 u34_ghosthavenext_base={--Ghost Haven Bay Conqueror & Ghost Haven Bay Group Event]
 {.791,.518,3281},--Hadilid Broodmother
@@ -360,7 +361,7 @@ khartagpoint_base={{.757,.195,1858,1}},
 ashalmawia02_base={{.349,.315,1859,1}},
 hallsofregulation_2_base={{.728,.402,2016,1}},
 }
-local BossesAchievements={[4272]=true,[4271]=true,[4265]=true,[4264]=true,[4262]=true,[4261]=true,[4260]=true,[4259]=true,[4258]=true,[4257]=true,[4003]=true,[4002]=true,[4001]=true,[4000]=true,[3959]=true,[3958]=true,[3957]=true,[3956]=true,[3955]=true,[3954]=true,[3660]=true,[3659]=true,[3658]=true,[3657]=true,[3625]=true,[3624]=true,[3623]=true,[3622]=true,[3621]=true,[3620]=true,[3490]=true,[3489]=true,[3284]=true,[3283]=true,[3282]=true,[3281]=true,[3280]=true,[3279]=true,[3278]=true,[3277]=true,[3276]=true,[3275]=true,[2996]=true,[2997]=true,[2971]=true,[2714]=true,[2715]=true,[2717]=true,[2718]=true,[2440]=true,[2442]=true,[2444]=true,[2445]=true,[744]=true,[734]=true,[741]=true,[742]=true,[733]=true,[732]=true,[377]=true,[738]=true,[739]=true,[740]=true,[1238]=true,[1239]=true,[1052]=true,[2095]=true,[2096]=true,[2181]=true,[2182]=true,[2007]=true,[300]=true,[470]=true,[1235]=true,[1236]=true,[1855]=true,[1846]=true,[1057]=true,[1058]=true,[1059]=true,[1061]=true,[1062]=true,[1063]=true,[1064]=true,[1425]=true,[1857]=true,[1691]=true,[1523]=true,[1856]=true,[1854]=true,[368]=true,[370]=true,[374]=true,[376]=true,[390]=true,[396]=true,}
+local BossesAchievements={[4472]=true,[4471]=true,[4272]=true,[4271]=true,[4265]=true,[4264]=true,[4262]=true,[4261]=true,[4260]=true,[4259]=true,[4258]=true,[4257]=true,[4003]=true,[4002]=true,[4001]=true,[4000]=true,[3959]=true,[3958]=true,[3957]=true,[3956]=true,[3955]=true,[3954]=true,[3660]=true,[3659]=true,[3658]=true,[3657]=true,[3625]=true,[3624]=true,[3623]=true,[3622]=true,[3621]=true,[3620]=true,[3548]=true,[3490]=true,[3489]=true,[3284]=true,[3283]=true,[3282]=true,[3281]=true,[3280]=true,[3279]=true,[3278]=true,[3277]=true,[3276]=true,[3275]=true,[3197]=true,[3136]=true,[3135]=true,[3076]=true,[2997]=true,[2996]=true,[2995]=true,[2994]=true,[2971]=true,[2853]=true,[2852]=true,[2718]=true,[2717]=true,[2715]=true,[2714]=true,[2644]=true,[2643]=true,[2642]=true,[2641]=true,[2640]=true,[2639]=true,[2558]=true,[2557]=true,[2445]=true,[2444]=true,[2443]=true,[2442]=true,[2441]=true,[2440]=true,[2401]=true,[2400]=true,[2399]=true,[2398]=true,[2397]=true,[2396]=true,[2287]=true,[2286]=true,[2182]=true,[2181]=true,[2096]=true,[2095]=true,[2017]=true,[2016]=true,[2007]=true,[1863]=true,[1862]=true,[1861]=true,[1860]=true,[1859]=true,[1858]=true,[1857]=true,[1856]=true,[1855]=true,[1854]=true,[1846]=true,[1691]=true,[1523]=true,[1427]=true,[1426]=true,[1425]=true,[1356]=true,[1355]=true,[1302]=true,[1301]=true,[1300]=true,[1299]=true,[1298]=true,[1297]=true,[1239]=true,[1238]=true,[1236]=true,[1235]=true,[1064]=true,[1063]=true,[1062]=true,[1061]=true,[1059]=true,[1058]=true,[1057]=true,[1056]=true,[1055]=true,[1054]=true,[1053]=true,[1052]=true,[1051]=true,[1050]=true,[1049]=true,[901]=true,[900]=true,[899]=true,[898]=true,[897]=true,[896]=true,[895]=true,[894]=true,[893]=true,[892]=true,[891]=true,[890]=true,[889]=true,[888]=true,[887]=true,[886]=true,[885]=true,[884]=true,[874]=true,[747]=true,[746]=true,[745]=true,[744]=true,[743]=true,[742]=true,[741]=true,[740]=true,[739]=true,[738]=true,[737]=true,[736]=true,[735]=true,[734]=true,[733]=true,[732]=true,[731]=true,[730]=true,[714]=true,[713]=true,[708]=true,[707]=true,[578]=true,[577]=true,[576]=true,[575]=true,[574]=true,[573]=true,[567]=true,[559]=true,[558]=true,[555]=true,[553]=true,[550]=true,[544]=true,[543]=true,[542]=true,[541]=true,[540]=true,[539]=true,[470]=true,[469]=true,[468]=true,[460]=true,[458]=true,[457]=true,[456]=true,[455]=true,[454]=true,[453]=true,[445]=true,[437]=true,[436]=true,[435]=true,[434]=true,[433]=true,[432]=true,[423]=true,[420]=true,[419]=true,[416]=true,[414]=true,[412]=true,[396]=true,[390]=true,[388]=true,[381]=true,[380]=true,[379]=true,[378]=true,[377]=true,[376]=true,[374]=true,[372]=true,[371]=true,[370]=true,[368]=true,[334]=true,[333]=true,[332]=true,[331]=true,[330]=true,[329]=true,[300]=true,[298]=true,[297]=true,[293]=true,[292]=true,[291]=true,[290]=true,[289]=true,[288]=true,[286]=true,[282]=true,[281]=true,[274]=true,[269]=true,[268]=true,[267]=true,[266]=true,[265]=true,[264]=true,[256]=true,[255]=true,[254]=true,[253]=true,[252]=true,[251]=true,[250]=true,[249]=true,[248]=true,[247]=true,[246]=true,[245]=true,[232]=true,[231]=true,[230]=true,[229]=true,[228]=true,[227]=true,[226]=true,[225]=true,[224]=true,[223]=true,[222]=true,[221]=true,[220]=true,[219]=true,[218]=true,[217]=true,[216]=true,[215]=true,[208]=true,[207]=true,[206]=true,[205]=true,[203]=true,[202]=true,}
 local SkyShards={
 blackreach_base={
 {.767,.370,2687,16,469},
@@ -883,7 +884,7 @@ reach_base={--Provided by art1ink
 {.346,.487,3,3},--Bloodfiends of Rivenspire
 {.573,.491,4,2},--Living with Lycanthropy
 {.439,.685,4,9},--A Life Barbaric and Brutal
-{.583,.44,22.5},--The Crown of Freydis
+{.583,.44,22,5},--The Crown of Freydis
 {.54,.288,22,7},--All About Giants
 {.504,.626,24,10},--Clans of the Reach: A Guide
 {.39,.674,24,4}},--Thenephan's Mysteries of Mead
@@ -4733,19 +4734,14 @@ local function OnAchievementUpdate(achievementId,link)
 			if COMPASS_PINS then COMPASS_PINS:RefreshPins(name) end
 		end)
 	end
-	if SkyShardsAchievements[achievementId] then
-		RefreshPins(_G[CustomPins[3].name])
-	elseif FishingAchievements[achievementId] and SavedVars[17] then
+	if BossesAchievements[achievementId] and SavedVars[1] then -- Delve bosses
+		RefreshPins(_G[CustomPins[1].name])
+	elseif FishingAchievements[achievementId] and SavedVars[17] then -- Fishing
 		RefreshPins(_G[CustomPins[17].name])
-	elseif CustomPins[achievementId] and CustomPins[achievementId].ach then
+	elseif CustomPins[achievementId] and CustomPins[achievementId].ach then -- Achievements
 		RefreshPins(_G[CustomPins[achievementId].name])
-	elseif achievementId==1379 or achievementId==1380 or achievementId==1381 or achievementId==1382 then
-		RefreshPins(_G[CustomPins[1383].name])
-	elseif BossesAchievements[achievementId] then
-		local AchName=GetAchievementCriterion(achievementId,1)
-		if string.match(AchName,"Explorer") or string.match(AchName,"Group Challenge") then
-			RefreshPins(_G[CustomPins[1].name])
-		end
+	elseif achievementId==1379 or achievementId==1380 or achievementId==1381 or achievementId==1382 then -- A Cutpurse Above Achievement
+		RefreshPins(_G[CustomPins[1383].name])	
 	end
 end
 local function OnSkyshardsUpdated()
@@ -4892,6 +4888,30 @@ local function TrackChestsRange()
 --	if IsUnitInCombat('player') then return end
 	PinManager:RefreshCustomPins(PinId[7])
 end
+--AutoCalls refresh on chest Pins
+local function RegisterChestRefresh() 	
+	local lastX ,lastY = 0, 0
+	local lastMap = nil
+	EVENT_MANAGER:RegisterForUpdate("MapPins_Chest_Refresh",5000, function()
+		local x,y=GetMapPlayerPosition("player")
+		if not x or not y then return end
+		local map = GetMapTileTexture()
+		if map ~= lastMap then
+			lastMap = map
+			lastX,lastY = x,y
+			TrackChestsRange()
+			return
+		end
+		local range=.05
+		if GetMapContentType() == MAP_CONTENT_DUNGEON then range=.15 end
+		local dx=lastX-x
+		local dy=lastY-y
+		if dx*dx + dy*dy > range*range then
+			lastX,lastY = x,y
+			TrackChestsRange()
+		end
+	end)   
+end
 
 local function ResizePins(minimap)
 	ZO_MapPin.PIN_DATA[_G[CustomPins[8].name]].size=minimap and 40*BUI.Vars.PinScale/100 or 40	--Unknown POI
@@ -4934,16 +4954,13 @@ local function RegisterEvents()
 		EVENT_MANAGER:UnregisterForEvent(AddonName,EVENT_CLIENT_INTERACT_RESULT)
 	end
 	if SavedVars[7] then
-		if BUI and BUI.name=="BanditsUserInterface" then
-			CALLBACK_MANAGER:RegisterCallback("BUI_MiniMap_Update", TrackChestsRange)
-		else
-			WORLD_MAP_SCENE:RegisterCallback("StateChange", function(oldState, newState)
-				if newState==SCENE_SHOWING then TrackChestsRange() end
-			end)
-		end
+		if VOTANS_MINIMAP or FyrMM or AUI and AUI.Minimap.DoesShow() or BUI and BUI.Vars.MiniMap then RegisterChestRefresh() end
+		WORLD_MAP_SCENE:RegisterCallback("StateChange", function(oldState, newState)
+			if newState==SCENE_SHOWING then TrackChestsRange() end
+		end)
 	else
-		CALLBACK_MANAGER:UnregisterCallback("BUI_MiniMap_Update")
 		WORLD_MAP_SCENE:UnregisterCallback("StateChange")
+		EVENT_MANAGER:UnregisterForUpdate("MapPins_Chest_Refresh")
 	end
 	if SavedVars[8] and (BUI and BUI.name=="BanditsUserInterface") then
 		CALLBACK_MANAGER:RegisterCallback("BUI_MiniMap_Shown", ResizePins)
@@ -5263,7 +5280,7 @@ local function OnLoad(eventCode,addonName)
 	SavedGlobal=ZO_SavedVars:NewAccountWide("MP_SavedGlobal",1,nil,DefaultGlobal)
 	PinManager=ZO_WorldMap_GetPinManager()
 --	CustomPins_init()
-	RegisterEvents()
+	zo_callLater(RegisterEvents,100) -- setup the events that need fire
 	MakeMapFiltersScroll()
 
 	--APIVersion: 101032
