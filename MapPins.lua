@@ -10,7 +10,7 @@ local AddonName="MapPins"
 local Localization=MapPins_Localization or {}
 local lang=GetCVar("language.2") if not Localization[lang] then lang="en" end
 local function Loc(string)
-	return Localization[lang][string] or Localization[lang]["en"] or string
+	return Localization[lang] and Localization[lang][string] or Localization[lang] and Localization[lang]["en"] or string
 end
 
 --Data base
