@@ -4013,7 +4013,7 @@ local CustomPins={	--Types
 	[1]={name="pinType_Delve_bosses",done=false,id={},pin={},maxDistance=0.05,level=30,texture="/esoui/art/icons/poi/poi_groupboss_incomplete.dds",k=1.25},--tint=ZO_ColorDef:New(1,1,1,1),
 	[2]={name="pinType_Delve_bosses_done",done=true,id={},pin={},maxDistance=0.05,level=30,texture="/esoui/art/icons/poi/poi_groupboss_complete.dds",k=1.25},
 	[3]={name="pinType_Skyshards",done=false,id={},pin={},maxDistance=0.05,level=100,texture="/"..AddonName.."/textures/Skyshard_1.dds",k=1.40},
-	[4]={name="pinType_Skyshards_done",done=true,id={},pin={},maxDistance=0.05,level=100,texture="/esoui/art/mappins/skyshard_complete.dds",k=1.4},
+--	[4]={name="pinType_Skyshards_done",done=true,id={},pin={},maxDistance=0.05,level=100,texture="/esoui/art/mappins/skyshard_complete.dds",k=1.4},
 	[5]={name="pinType_Lore_books",done=false,id={},pin={},maxDistance=0.05,level=100,texture="/"..AddonName.."/textures/Lorebook_1.dds",k=1,tint=ZO_ColorDef:New(.6,.6,1,.8)},
 --	[5]={name="pinType_Lore_books_done",done=true,id={},pin={},maxDistance=0.05,level=30,texture="/"..AddonName.."/textures/Lorebook_2.dds",k=1,tint=ZO_ColorDef:New(.6,.6,1,.8)},
 	[6]={name="pinType_Treasure_Maps",done=false,id={},pin={},maxDistance=0.05,level=101,texture=function(self) return self.m_PinTag.texture end,def_texture="/"..AddonName.."/textures/Treasure_1.dds",k=1.4},
