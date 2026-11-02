@@ -5046,6 +5046,7 @@ local function AddPinFilter(i)
 	end
 
 	local function AddCheckbox(panel)
+		if not panel then return nil end
 		local checkbox=panel.checkBoxPool:AcquireObject()
 		local icon=zo_iconFormat((CustomPins[i].def_texture or CustomPins[i].texture),24,24)
 		local name=CustomPins[i].ach and GetCroppedAchievementInfo(i) or Loc(string.gsub(CustomPins[i].name,"pinType_",""))
